@@ -1,151 +1,74 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
+  <div>
+         <grid-layout
+            :layout.sync="layout"
+            :col-num="12"
+            :row-height="30"
+            :is-draggable="!saved"
+            :is-resizable="!saved"
+            :is-mirrored="false"
+            :vertical-compact="true"
+            :margin="[10, 10]"
+            :use-css-transforms="true"
+    >
 
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
+        <grid-item class="grid-item px-5" v-for="item in layout"
+                   :x="item.x"
+                   :y="item.y"
+                   :w="item.w"
+                   :h="item.h"
+                   :i="item.i"
+                   :minH="2"
+                   :maxH="2"
+                   :key="item.i">
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
+            <v-text-field
+              v-model="form[item.key]"
+              :label="item.key"
+            ></v-text-field>
 
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
+        </grid-item>
+    </grid-layout>
 
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
+    <v-btn @click="saved=!saved">
+      <div v-if="saved">Edit My Form</div>
+      <div v-else>Save My Form</div>
+    </v-btn>
 
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+  </div>
+    
+
 </template>
 
 <script>
+import VueGridLayout from 'vue-grid-layout';
   export default {
     name: 'HelloWorld',
-
+    components: {
+      GridLayout: VueGridLayout.GridLayout,
+      GridItem: VueGridLayout.GridItem
+    },
     data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/layout/pre-defined',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
+      saved: false,
+      form: {
+
+      },
+      layout: [
+        {"x":0,"y":0,"w":2,"h":2,"i":"0", key: "name"},
+        {"x":2,"y":0,"w":2,"h":4,"i":"1", key: "surname"},
+        {"x":4,"y":0,"w":2,"h":5,"i":"2", key: "email"},
+        {"x":6,"y":0,"w":2,"h":3,"i":"3", key: "age"},
+        {"x":8,"y":0,"w":2,"h":3,"i":"4"}
+	    ]
     }),
   }
 </script>
+
+<style lang="css">
+  .grid-item {
+    background: greenyellow
+  }
+</style>
