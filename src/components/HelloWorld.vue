@@ -38,7 +38,9 @@
 
 
       <v-col class="px-5" cols="4">
-        {{form}}
+        {{form}} <br>
+        {{selectedElement}} <br>
+        {{formElementOpts}}
         
         <v-card dark class="pa-5">
 
@@ -51,7 +53,7 @@
             outlined
           ></v-select>
 
-          <div v-if="selectedElement">
+          <div v-if="!selectedElement">
             <v-row>
               <v-col cols="12">
                 <h3>Additional Properties</h3>
@@ -76,11 +78,80 @@
 
         </v-card>
 
-        <v-card dark class="mt-3 pa-5" v-if="selectedElement">
-          <v-card-title>Preview of The Form Element</v-card-title>
-          <v-text-field
-            :label="formElement.label"
-          ></v-text-field>
+        <v-card flat class="mt-3" v-if="!selectedElement">
+
+          <v-card dark>
+            <v-card-title>Preview of The Form Element</v-card-title>
+          </v-card>
+
+          <div class="grid-item px-5 py-2">
+            <v-text-field
+              :label="formElement.label"
+            ></v-text-field>
+          </div>
+
+          <v-card-text style="position: relative">
+
+            <v-row>
+              <v-col cols="9">
+                <v-row no-gutters>
+                  <v-col cols="12">
+                    <v-switch
+                      v-model="addToBottom"
+                      :label="`Add To ${addToBottom ? 'Bottom' : 'Top'}`"
+                    ></v-switch>
+                  </v-col>
+                  <v-col cols="6" class="pr-3">
+                    <v-card flat>
+                      <v-row no-gutters class="number-field">
+                        <v-col class="blue section1 white-text py-2" cols="3">
+                          <h2 class="text-center">H:</h2>
+                        </v-col>
+                        <v-col cols="3" class="ml-2 py-2">
+                          <NumberInput field="width"
+                          :min="1" :max="12"
+                          :form="formElementOpts"/>
+                        </v-col>
+                        <v-col cols="1" class="suffix py-2">
+                          <h2>/12</h2>
+                        </v-col>
+                      </v-row>
+                    </v-card>
+
+                  </v-col>
+                  <v-col cols="6" class="pr-3">
+                    <NumberInput field="height"
+                    :min="1" :max="12"
+                    :form="formElementOpts"/>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="3">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      @click="addToForm"
+                      absolute fab
+                      medium right
+                      dark color="pink"
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Add Element to Form</span>
+                </v-tooltip>
+              </v-col>
+            </v-row>
+
+
+
+
+            
+
+
+
+          </v-card-text>
         </v-card>
 
 
@@ -107,9 +178,11 @@
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
+import NumberInput from '@/components/NumberInput'
   export default {
     name: 'HelloWorld',
     components: {
+      NumberInput,
       GridLayout: VueGridLayout.GridLayout,
       GridItem: VueGridLayout.GridItem
     },
@@ -117,6 +190,7 @@ import VueGridLayout from 'vue-grid-layout';
       saved: false,
       form: {},
       formElement: {},
+      formElementOpts: {},
       layout: [
         {"x":0,"y":0,"w":2,"h":2,"i":"0", key: "name"},
         {"x":2,"y":0,"w":2,"h":4,"i":"1", key: "surname"},
@@ -125,16 +199,49 @@ import VueGridLayout from 'vue-grid-layout';
         {"x":8,"y":0,"w":2,"h":3,"i":"4"}
       ],
       
+      addToBottom: true,
       selectedElement: null,
       items: [
         {label: 'Text Field', key: 'v-text-field'}
       ]
     }),
+    methods: {
+      addToForm() {
+        const i = this.layout.length
+         
+        this.layout.push({"x":0,"y":1,"w":12,"h":2,"i": i, key: this.formElement.key})
+        console.log('added')
+      }
+    },
   }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .grid-item {
     background: greenyellow
   }
+
+  .section1 {
+    width:100%; /*full width*/
+    min-height:90%;
+    text-align:center;
+    display:table; /*acts like a table*/
+    color: white;
+
+}
+  .suffix {
+    width:100%;
+    min-height:90%;
+    text-align:center;
+    display:table; 
+}
+h2 {
+  display:table-cell; 
+  vertical-align:middle; 
+  height: 2rem;
+  margin: 0 auto;
+}
+.number-field {
+  border: blue 2px solid;
+}
 </style>
