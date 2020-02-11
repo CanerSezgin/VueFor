@@ -17,9 +17,10 @@ export default {
 <style lang="css" scoped>
 input.number {
   height: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   outline: none;
   width: 100%;
+  text-align: right;
 }
 /*** Remove Arrows ***/
 input::-webkit-outer-spin-button,
