@@ -42,6 +42,8 @@
                         ></v-text-field>
                     </v-col>
                     <v-col cols="6">
+                        <!-- TODO: Add Validation: Same Key can not be used -->
+                        <!-- TODO: Add Validation: Key can not be null -->
                         <v-text-field
                             v-model="element.key"
                             label="Form Key"
@@ -120,7 +122,10 @@
             </v-card-text>
         </v-card>
         category: {{ category }} <br />
-        isElementSelected: {{ isElementSelected }}
+        isElementSelected: {{ isElementSelected }} <br />
+        --------------------------  <br />
+        element: {{element}} <br>
+        elementOpts: {{elementOpts}} <br>
     </div>
 </template>
 
@@ -179,17 +184,15 @@ export default {
             this.element = {};
             this.isElementSelected = false;
         },
-        submit(element) {
+        submit(e) {
             this.$emit('addToForm', {
-                i: null,
                 addToBottom: this.elementOpts.addToBottom,
                 x: 0,
-                y: null,
                 w: parseInt(this.elementOpts.width),
                 h: parseInt(this.elementOpts.height),
-                element
+                element: {...e, desc: "aaaaaaaaaaaaaaaaaaaaaaa", type: "h2"}
             })
-            console.log("submitted Form Manager");
+            this.resetFormManager()
         }
     }
 };

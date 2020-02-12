@@ -26,12 +26,9 @@
               :maxH="2"
               :key="item.i"
             >
-              <!-- <v-text-field
-                v-model="form[item.element.key]"
-                :label="item.element.label"
-              ></v-text-field> -->
+              
+            <FormElements component="SimpleText" :opts="{...item.element, form}" />
 
-              <!-- {{ item.element }} -->
             </grid-item>
           </grid-layout>
         </v-card>
@@ -40,6 +37,8 @@
       <v-col class="px-5" cols="4">
         form: {{ form }} <br />
         <FormManager @addToForm="addToForm" />
+
+        {{layout}}
 
       </v-col>
     </v-row>
@@ -55,9 +54,12 @@
 import FormManager from '@/components/FormManager';
 import VueGridLayout from "vue-grid-layout";
 
+import FormElements from '@/components/FormElements/main.vue'
+
 export default {
   name: "HelloWorld",
   components: {
+    FormElements,
     FormManager,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem
@@ -66,13 +68,7 @@ export default {
     saved: false,
     form: {},
 
-    layout: [
-      /* {"x":0,"y":0,"w":2,"h":2,"i":"0", key: "name"},
-        {"x":2,"y":0,"w":2,"h":4,"i":"1", key: "surname"},
-        {"x":4,"y":0,"w":2,"h":5,"i":"2", key: "email"},
-        {"x":6,"y":0,"w":2,"h":3,"i":"3", key: "age"},
-        {"x":8,"y":0,"w":2,"h":3,"i":"4"} */
-    ],
+    layout: [],
   }),
   methods: {
     getLastElementYPosition() {
@@ -86,13 +82,19 @@ export default {
     },
     
     addToForm(data) {
-      console.log(data)
-      console.log("addtodata main")
+      const processedData = {
+        ...data,
+        i: this.layout.length,
+        y: data.addToBottom ? this.getLastElementYPosition() + 1 : 0
+      }
+      this.layout.push(processedData)
     }
   }
 };
 </script>
 
 <style lang="css" scoped>
-
+.grid-item {
+    background: greenyellow;
+}
 </style>
