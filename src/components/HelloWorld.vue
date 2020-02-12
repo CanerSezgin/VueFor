@@ -27,7 +27,7 @@
               :key="item.i"
             >
               
-            <FormElements component="SimpleText" :opts="{...item.element, form}" />
+            <FormElements :opts="{...item.element, form}" />
 
             </grid-item>
           </grid-layout>
@@ -38,7 +38,8 @@
         form: {{ form }} <br />
         <FormManager @addToForm="addToForm" />
 
-        {{layout}}
+        --------------------------------- <br>
+        layout: {{layout}} <br>
 
       </v-col>
     </v-row>
@@ -51,16 +52,15 @@
 </template>
 
 <script>
-import FormManager from '@/components/FormManager';
 import VueGridLayout from "vue-grid-layout";
-
-import FormElements from '@/components/FormElements/main.vue'
+import FormManager from '@/components/FormManager/FormManager'
+import FormElements from '@/components/FormElements/FormElements'
 
 export default {
   name: "HelloWorld",
   components: {
-    FormElements,
     FormManager,
+    FormElements,
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem
   },
@@ -87,6 +87,7 @@ export default {
         i: this.layout.length,
         y: data.addToBottom ? this.getLastElementYPosition() + 1 : 0
       }
+      delete processedData.addToBottom
       this.layout.push(processedData)
     }
   }

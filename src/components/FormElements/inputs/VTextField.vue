@@ -1,10 +1,20 @@
 <template>
 
-    <v-text-field
-        v-if="opts"
-        v-model="opts.form[opts.key]"
-        :label="opts.label"
-    ></v-text-field>
+    <div v-if="opts">
+
+        <v-text-field
+            v-if="!opts.isPreview"
+            v-model="opts.form[opts.key]"
+            :label="opts.label"
+        ></v-text-field>
+
+        <!-- Preview -->
+        <v-text-field
+            v-if="opts.isPreview"
+            :label="opts.label"
+        ></v-text-field>
+
+    </div>
 
 </template>
 

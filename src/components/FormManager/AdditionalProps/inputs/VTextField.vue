@@ -1,0 +1,28 @@
+<template>
+    <v-row>
+        <v-col cols="6">
+            <v-text-field
+                v-model="element.label"
+                label="Label"
+                required
+            ></v-text-field>
+        </v-col>
+        <v-col cols="6">
+            <!-- TODO: Add Validation: Same Key can not be used -->
+            <!-- TODO: Add Validation: Key can not be null -->
+            <v-text-field
+                v-model="element.key"
+                label="Form Key"
+                required
+            ></v-text-field>
+        </v-col>
+    </v-row>
+</template>
+
+<script>
+export default {
+    props: ["element"]
+};
+</script>
+
+<style lang="scss" scoped></style>

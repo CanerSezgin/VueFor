@@ -1,5 +1,5 @@
 <template>
-    <component :is="component" :opts="opts"></component>
+    <component :is="opts.component" :opts="opts"></component>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ import VTextField from '@/components/FormElements/inputs/VTextField';
             SimpleText,
             VTextField
         },
-        props: ["component", "opts"],
+        props: ["opts"],
         data() {
             return {
                 VTextField: "VTextField",

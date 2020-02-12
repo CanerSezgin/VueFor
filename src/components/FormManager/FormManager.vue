@@ -19,7 +19,7 @@
                 </v-col>
                 <v-col>
                     <v-select
-                        v-model="isElementSelected"
+                        v-model="selectedElement"
                         :items="items"
                         item-text="label"
                         item-value="key"
@@ -29,38 +29,27 @@
                 </v-col>
             </v-row>
 
-            <div v-if="isElementSelected">
-                <v-row>
+            <div v-if="selectedElement">
+                <v-row no-gutters>
                     <v-col cols="12">
                         <h3>Additional Properties</h3>
                     </v-col>
-                    <v-col cols="6">
-                        <v-text-field
-                            v-model="element.label"
-                            label="Label"
-                            required
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                        <!-- TODO: Add Validation: Same Key can not be used -->
-                        <!-- TODO: Add Validation: Key can not be null -->
-                        <v-text-field
-                            v-model="element.key"
-                            label="Form Key"
-                            required
-                        ></v-text-field>
-                    </v-col>
                 </v-row>
+                <!-- Additional Properties -->
+                <AdditionalProps :component="selectedElement" :element="element"/> 
+
             </div>
+            
         </v-card>
 
-        <v-card flat class="mt-3" v-if="isElementSelected">
+        <v-card flat class="mt-3" v-if="selectedElement">
             <v-card dark>
                 <v-card-title>Preview of The Form Element</v-card-title>
             </v-card>
 
             <div class="grid-item px-5 py-2">
-                <v-text-field :label="element.label"></v-text-field>
+                <!-- Previev of The Form Element -->
+                <FormElements :opts="{...element, component: selectedElement, isPreview: true}" />
             </div>
 
             <v-card-text style="position: relative">
@@ -122,7 +111,7 @@
             </v-card-text>
         </v-card>
         category: {{ category }} <br />
-        isElementSelected: {{ isElementSelected }} <br />
+        selectedElement: {{ selectedElement }} <br />
         --------------------------  <br />
         element: {{element}} <br>
         elementOpts: {{elementOpts}} <br>
@@ -130,6 +119,8 @@
 </template>
 
 <script>
+import FormElements from '@/components/FormElements/FormElements'
+import AdditionalProps from '@/components/FormManager/AdditionalProps/AdditionalProps'
 import NumberWithSuffix from "@/components/NumberWithSuffix";
 
 class FormElementSelection {
@@ -144,13 +135,15 @@ class FormElementSelection {
 }
 
 const formElements = {
-    html: [new FormElementSelection("Paragraph", "p")],
-    inputs: [new FormElementSelection("Text Field", "v-text-field")]
+    html: [new FormElementSelection("Simple Text", "SimpleText")],
+    inputs: [new FormElementSelection("Text Field", "VTextField")]
 };
 
 export default {
     props: [],
     components: {
+        FormElements,
+        AdditionalProps,
         NumberWithSuffix
     },
     data() {
@@ -162,11 +155,16 @@ export default {
                 height: 2
             },
 
-            isElementSelected: false,
+            selectedElement: false,
 
             // Choose Form Element
             category: null,
-            items: []
+            items: [],
+
+            // initial additional properties
+            initialAdditionalProps: {
+                SimpleText: {type: 'p'}
+            }
         };
     },
     created() {
@@ -176,13 +174,22 @@ export default {
     watch: {
         category(val) {
             this.items = formElements[val];
-            this.isElementSelected = false;
+            this.resetFormManager();
+        },
+        selectedElement(val){
+            if(val){
+                console.log("set initial properties", val)
+                this.element = this.initialAdditionalProps[val] ? 
+                    JSON.parse(JSON.stringify(this.initialAdditionalProps[val])) : 
+                    {}
+            }
         }
     },
     methods: {
         resetFormManager() {
+            console.log("form reset")
             this.element = {};
-            this.isElementSelected = false;
+            this.selectedElement = false;
         },
         submit(e) {
             this.$emit('addToForm', {
@@ -190,7 +197,7 @@ export default {
                 x: 0,
                 w: parseInt(this.elementOpts.width),
                 h: parseInt(this.elementOpts.height),
-                element: {...e, desc: "aaaaaaaaaaaaaaaaaaaaaaa", type: "h2"}
+                element: {...e, component: this.selectedElement}
             })
             this.resetFormManager()
         }
