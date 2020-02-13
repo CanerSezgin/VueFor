@@ -6,14 +6,14 @@
                     <div>Form Element Category</div>
                     <v-radio-group v-model="category">
                         <v-radio
-                            label="HTML"
+                            label="Static"
                             color="blue"
-                            value="html"
+                            value="static"
                         ></v-radio>
                         <v-radio
-                            label="Inputs"
+                            label="Input"
                             color="blue"
-                            value="inputs"
+                            value="input"
                         ></v-radio>
                     </v-radio-group>
                 </v-col>
@@ -75,6 +75,7 @@
                                     :form="elementOpts"
                                     :min="1"
                                     :max="12"
+                                    :disabled="elementOpts.disableH"
                                 />
                             </v-col>
                             <v-col cols="6" class="pr-3">
@@ -84,6 +85,7 @@
                                     :form="elementOpts"
                                     :min="1"
                                     :max="12"
+                                    :disabled="elementOpts.disableW"
                                 />
                             </v-col>
                         </v-row>
@@ -135,8 +137,8 @@ class FormElementSelection {
 }
 
 const formElements = {
-    html: [new FormElementSelection("Simple Text", "SimpleText")],
-    inputs: [new FormElementSelection("Text Field", "VTextField")]
+    static: [new FormElementSelection("Simple Text", "SimpleText")],
+    input: [new FormElementSelection("Text Field", "VTextField")]
 };
 
 export default {
@@ -149,27 +151,30 @@ export default {
     data() {
         return {
             element: {},
-            elementOpts: {
-                addToBottom: true,
-                width: 12,
-                height: 2
-            },
+            elementOpts: {},
 
             selectedElement: false,
 
             // Choose Form Element
             category: null,
             items: [],
-
-            // initial additional properties
-            initialAdditionalProps: {
-                SimpleText: {type: 'p'}
+            
+            // Initials
+            initials: {
+                additionalProps: {
+                    SimpleText: {type: 'p'}
+                },
+                elementOpts: {
+                    VTextField: {minH: 2, maxH: 2, disableH: true}
+                }
             }
         };
     },
     created() {
         // Set Form Element Category at the beginning.
-        this.category = "html";
+        this.category = "static";
+        // Set Element Options
+        this.resetFormManager();
     },
     watch: {
         category(val) {
@@ -179,9 +184,12 @@ export default {
         selectedElement(val){
             if(val){
                 console.log("set initial properties", val)
-                this.element = this.initialAdditionalProps[val] ? 
-                    JSON.parse(JSON.stringify(this.initialAdditionalProps[val])) : 
+                
+                this.element = this.initials.additionalProps[val] ? 
+                    JSON.parse(JSON.stringify(this.initials.additionalProps[val])) : 
                     {}
+
+                this.elementOpts = {...this.initials.elementOpts[val], ...this.elementOpts}
             }
         }
     },
@@ -190,6 +198,14 @@ export default {
             console.log("form reset")
             this.element = {};
             this.selectedElement = false;
+            this.resetElementOpts();
+        },
+        resetElementOpts() {
+            this.elementOpts = {
+                addToBottom: true,
+                width: 12,
+                height: 2
+            }
         },
         submit(e) {
             this.$emit('addToForm', {
@@ -197,6 +213,8 @@ export default {
                 x: 0,
                 w: parseInt(this.elementOpts.width),
                 h: parseInt(this.elementOpts.height),
+                minH: parseInt(this.elementOpts.minH) || 1,
+                maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {...e, component: this.selectedElement}
             })
             this.resetFormManager()

@@ -5,12 +5,13 @@
     type="number"
     :max="max"
     :min="min"
+    :disabled="disabled"
   />
 </template>
 
 <script>
 export default {
-  props: ["form", "field", "max", "min"]
+  props: ["form", "field", "max", "min", "disabled"]
 };
 </script>
 

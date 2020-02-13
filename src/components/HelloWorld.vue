@@ -22,8 +22,8 @@
               :w="item.w"
               :h="item.h"
               :i="item.i"
-              :minH="2"
-              :maxH="2"
+              :minH="item.minH"
+              :maxH="item.maxH"
               :key="item.i"
             >
               
