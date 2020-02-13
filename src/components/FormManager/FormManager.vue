@@ -95,7 +95,7 @@
                             <template v-slot:activator="{ on }">
                                 <v-btn
                                     v-on="on"
-                                    @click="submit(element)"
+                                    @click="updateItem ? update(element) : submit(element)"
                                     absolute
                                     fab
                                     medium
@@ -106,11 +106,13 @@
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Add Element to Form</span>
+                            <span v-if="updateItem">Update Element</span>
+                            <span v-else>Add Element to Form</span>
                         </v-tooltip>
                     </v-col>
                 </v-row>
             </v-card-text>
+       
         </v-card>
         category: {{ category }} <br />
         selectedElement: {{ selectedElement }} <br />
@@ -142,7 +144,7 @@ const formElements = {
 };
 
 export default {
-    props: [],
+    props: ["updateItem"],
     components: {
         FormElements,
         AdditionalProps,
@@ -150,6 +152,8 @@ export default {
     },
     data() {
         return {
+            updating: false,
+
             element: {},
             elementOpts: {},
 
@@ -179,21 +183,46 @@ export default {
     watch: {
         category(val) {
             this.items = formElements[val];
-            this.resetFormManager();
+            if(!this.updating){
+                this.resetFormManager();
+            }
         },
         selectedElement(val){
             if(val){
-                console.log("set initial properties", val)
+                if(!this.updating){
+                    console.log("set initial properties", val)
                 
-                this.element = this.initials.additionalProps[val] ? 
+                    this.element = this.initials.additionalProps[val] ? 
                     JSON.parse(JSON.stringify(this.initials.additionalProps[val])) : 
                     {}
-
+                } 
                 this.elementOpts = {...this.initials.elementOpts[val], ...this.elementOpts}
+            }
+            if(this.updating){
+                this.updating = false
+            }
+        },
+        updateItem(val){
+            this.updating = true
+            if(val){
+                console.log(val, "update")
+                this.updateFormManager(val)
             }
         }
     },
     methods: {
+        updateFormManager(val){
+            this.category = val.element.category
+            this.selectedElement = val.element.component
+            this.element = val.element
+            this.elementOpts = {
+                addToBottom: true,
+                width: val.w,
+                height: val.h,
+                minH: val.minH,
+                maxH: val.maxH
+            }
+        },
         resetFormManager() {
             console.log("form reset")
             this.element = {};
@@ -204,7 +233,7 @@ export default {
             this.elementOpts = {
                 addToBottom: true,
                 width: 12,
-                height: 2
+                height: 2,
             }
         },
         submit(e) {
@@ -215,7 +244,24 @@ export default {
                 h: parseInt(this.elementOpts.height),
                 minH: parseInt(this.elementOpts.minH) || 1,
                 maxH: parseInt(this.elementOpts.maxH) || 12,
-                element: {...e, component: this.selectedElement}
+                element: {
+                    ...e,
+                    category: this.category, 
+                    component: this.selectedElement
+                }
+            })
+            this.resetFormManager()
+        },
+        update(e) {
+            this.$emit('updateElement', {
+                ...this.updateItem,
+                h: parseInt(this.elementOpts.height),
+                w: parseInt(this.elementOpts.width),
+                element: {
+                    ...e,
+                    category: this.category, 
+                    component: this.selectedElement
+                }
             })
             this.resetFormManager()
         }

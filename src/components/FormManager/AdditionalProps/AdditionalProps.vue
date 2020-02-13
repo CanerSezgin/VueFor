@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import SimpleText from '@/components/FormManager/AdditionalProps/html/SimpleText';
-import VTextField from '@/components/FormManager/AdditionalProps/inputs/VTextField';
+import SimpleText from '@/components/FormManager/AdditionalProps/static/SimpleText';
+import VTextField from '@/components/FormManager/AdditionalProps/input/VTextField';
     export default {
         components: {
             SimpleText,
