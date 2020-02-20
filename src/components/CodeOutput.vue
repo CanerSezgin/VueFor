@@ -1,6 +1,21 @@
 <template>
     <div>
-        {{preview}}
+<v-card class="px-4 container" :style="{ 
+    gridTemplateRows: 'repeat(2, 40px [row-start])',
+    display: 'inline-grid',
+    gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
+}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
+    
+            <v-text-field
+                v-model="form['sdf sdfdsf sdfds']"
+                label="qqqqq"
+            ></v-text-field>
+            
+    </div>
+    
+</v-card>
+{{form}}
     </div>
 </template>
 
@@ -38,19 +53,17 @@ const getElementStr = item => {
 
 export default {
     created() {
-        this.showForm();
+        console.log(
+            this.getTemplate()
+        )
     },
     data() {
         return {
-            preview: "",
-            layout:  [ { "x": 4, "w": 6, "h": 2, "minH": 2, "maxH": 2, "element": { "label": "fgfdg", "key": "dfgdfg", "category": "input", "component": "VTextField" }, "i": 0, "y": 2, "moved": false }, { "x": 0, "w": 8, "h": 1, "minH": 1, "maxH": 12, "element": { "type": "h2", "desc": "fdsgfds fdsgfdsgfd fdsgsfdg", "category": "static", "component": "SimpleText" }, "i": 1, "y": 4, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "label": "eewrwer", "key": "xcvxcv", "category": "input", "component": "VTextField" }, "i": 2, "y": 0, "moved": false }, { "x": 1, "w": 6, "h": 5, "minH": 1, "maxH": 12, "element": { "type": "h6", "desc": "dsfgfdg", "category": "static", "component": "SimpleText" }, "i": 3, "y": 5, "moved": false } ],
+            layout:   [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "key": "sdf sdfdsf sdfds", "label": "qqqqq", "category": "input", "component": "VTextField" }, "i": 0, "y": 0, "moved": false } ],
             form: {}
         };
     },
     methods: {
-        showForm() {
-            this.preview = this.getTemplate()
-        },
         getTemplate() {
             const lastRow = this.getLastRow()
             let response = ""; 

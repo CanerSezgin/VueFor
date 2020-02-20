@@ -41,6 +41,7 @@
                 <FormManager :updateItem="updateItem" 
                 @addToForm="addToForm" 
                 @updateElement="updateElement"
+                @changeWH="changeWH"
                 />
 
                 --------------------------------- <br />
@@ -77,6 +78,21 @@ export default {
         layout: []
     }),
     methods: {
+        exit() {
+            console.log("exit")
+        },
+        changeWH(data){
+            const index = this.layout.findIndex(item => item.i === data.i) 
+            switch (data.type) {
+                case "w":
+                    this.layout[index].w = data.val
+                    break;
+            
+                case "h":
+                    this.layout[index].h = data.val
+                    break;
+            }
+        },
         getLastElementYPosition() {
             let y = 0;
             this.layout.forEach(element => {
@@ -101,8 +117,19 @@ export default {
             this.updateItem = val
         },
         updateElement(data) {
+            console.log(data)
             const index = this.layout.findIndex(item => item.i === data.i)
-            this.layout[index] = data
+            
+            // DO NOT change object refrence by setting another object
+            this.layout[index].x = data.x
+            this.layout[index].y = data.y
+            this.layout[index].w = data.w
+            this.layout[index].h = data.h
+            this.layout[index].i = data.i
+            this.layout[index].minH = data.minH
+            this.layout[index].maxH = data.maxH
+            this.layout[index].element = data.element
+            
             this.updateItem = null
         }
     }
@@ -111,9 +138,11 @@ export default {
 
 <style lang="css" scoped>
 .grid-item {
-    background: greenyellow;
+    background: #E0F2F1;
+    border: 1px dashed #6D4C41;
 }
 .grid-selected-item {
-    background: red;
+    background: #FFCC80;
+    border: 1px dashed #6D4C41;
 }
 </style>

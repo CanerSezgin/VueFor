@@ -174,6 +174,20 @@ export default {
             }
         };
     },
+    computed: {
+        updateItemH(){
+            return this.updateItem ? this.updateItem.h : null
+        },
+        updateItemW(){
+            return this.updateItem ? this.updateItem.w : null
+        },
+        updateElementOptsH(){
+            return this.elementOpts && this.elementOpts.height ? this.elementOpts.height : null
+        },
+        updateElementOptsW(){
+            return this.elementOpts && this.elementOpts.width ? this.elementOpts.width : null
+        }
+    },
     created() {
         // Set Form Element Category at the beginning.
         this.category = "static";
@@ -207,6 +221,22 @@ export default {
             if(val){
                 console.log(val, "update")
                 this.updateFormManager(val)
+            }
+        },
+        updateItemW(val){
+            this.elementOpts.width = val
+        },
+        updateItemH(val) {
+            this.elementOpts.height = val
+        },
+        updateElementOptsW(val){
+            if(val && this.updateItem){
+                this.$emit('changeWH', {i: this.updateItem.i, type: "w", val: parseInt(val)})
+            }
+        },
+        updateElementOptsH(val){
+            if(val && this.updateItem){
+                this.$emit('changeWH', {i: this.updateItem.i, type: "h", val: parseInt(val)})
             }
         }
     },
@@ -257,6 +287,8 @@ export default {
                 ...this.updateItem,
                 h: parseInt(this.elementOpts.height),
                 w: parseInt(this.elementOpts.width),
+                minH: parseInt(this.elementOpts.minH) || 1,
+                maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {
                     ...e,
                     category: this.category, 
@@ -271,6 +303,7 @@ export default {
 
 <style lang="css" scoped>
 .grid-item {
-    background: greenyellow;
+    background: #B2DFDB;
+    border: 1px dashed #6D4C41;
 }
 </style>
