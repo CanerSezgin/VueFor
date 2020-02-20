@@ -1,9 +1,24 @@
 <template>
     <div id="form-manager">
         <v-card dark class="pa-5">
-            <v-row>
+            <v-card-text class="white--text">
+                <h3>Form Element Category</h3>
+                <v-btn
+                    v-show="selectedElement && !updateItem"
+                    @click="resetFormManager"
+                    color="pink"
+                    dark
+                    absolute
+                    top
+                    right
+                    fab
+                >
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </v-card-text>
+            <v-row no-gutters>
                 <v-col>
-                    <div>Form Element Category</div>
+                    <div></div>
                     <v-radio-group v-model="category">
                         <v-radio
                             label="Static"
@@ -29,17 +44,18 @@
                 </v-col>
             </v-row>
 
-            <div v-if="selectedElement">
+            <div v-if="selectedElement" class="mt-5">
                 <v-row no-gutters>
                     <v-col cols="12">
                         <h3>Additional Properties</h3>
                     </v-col>
                 </v-row>
                 <!-- Additional Properties -->
-                <AdditionalProps :component="selectedElement" :element="element"/> 
-
+                <AdditionalProps
+                    :component="selectedElement"
+                    :element="element"
+                />
             </div>
-            
         </v-card>
 
         <v-card flat class="mt-3" v-if="selectedElement">
@@ -49,7 +65,13 @@
 
             <div class="grid-item px-5 py-2">
                 <!-- Previev of The Form Element -->
-                <FormElements :opts="{...element, component: selectedElement, isPreview: true}" />
+                <FormElements
+                    :opts="{
+                        ...element,
+                        component: selectedElement,
+                        isPreview: true
+                    }"
+                />
             </div>
 
             <v-card-text style="position: relative">
@@ -91,40 +113,34 @@
                         </v-row>
                     </v-col>
                     <v-col cols="3">
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    v-on="on"
-                                    @click="updateItem ? update(element) : submit(element)"
-                                    absolute
-                                    fab
-                                    medium
-                                    right
-                                    dark
-                                    color="pink"
-                                >
-                                    <v-icon>mdi-plus</v-icon>
-                                </v-btn>
-                            </template>
+                        <v-btn
+                            @click="
+                                updateItem ? update(element) : submit(element)
+                            "
+                            absolute
+                            large
+                            right
+                            dark
+                            color="pink"
+                        >
                             <span v-if="updateItem">Update Element</span>
-                            <span v-else>Add Element to Form</span>
-                        </v-tooltip>
+                            <span v-else>Add Element</span>
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
-       
         </v-card>
         category: {{ category }} <br />
         selectedElement: {{ selectedElement }} <br />
-        --------------------------  <br />
-        element: {{element}} <br>
-        elementOpts: {{elementOpts}} <br>
+        -------------------------- <br />
+        element: {{ element }} <br />
+        elementOpts: {{ elementOpts }} <br />
     </div>
 </template>
 
 <script>
-import FormElements from '@/components/FormElements/FormElements'
-import AdditionalProps from '@/components/FormManager/AdditionalProps/AdditionalProps'
+import FormElements from "@/components/FormElements/FormElements";
+import AdditionalProps from "@/components/FormManager/AdditionalProps/AdditionalProps";
 import NumberWithSuffix from "@/components/NumberWithSuffix";
 
 class FormElementSelection {
@@ -144,7 +160,7 @@ const formElements = {
 };
 
 export default {
-    props: ["updateItem"],
+    props: ["updateItem", "noOfEl"],
     components: {
         FormElements,
         AdditionalProps,
@@ -162,30 +178,34 @@ export default {
             // Choose Form Element
             category: null,
             items: [],
-            
+
             // Initials
             initials: {
                 additionalProps: {
-                    SimpleText: {type: 'p'}
+                    SimpleText: { type: "p" }
                 },
                 elementOpts: {
-                    VTextField: {minH: 2, maxH: 2, disableH: true}
+                    VTextField: { minH: 2, maxH: 2, disableH: true }
                 }
             }
         };
     },
     computed: {
-        updateItemH(){
-            return this.updateItem ? this.updateItem.h : null
+        updateItemH() {
+            return this.updateItem ? this.updateItem.h : null;
         },
-        updateItemW(){
-            return this.updateItem ? this.updateItem.w : null
+        updateItemW() {
+            return this.updateItem ? this.updateItem.w : null;
         },
-        updateElementOptsH(){
-            return this.elementOpts && this.elementOpts.height ? this.elementOpts.height : null
+        updateElementOptsH() {
+            return this.elementOpts && this.elementOpts.height
+                ? this.elementOpts.height
+                : null;
         },
-        updateElementOptsW(){
-            return this.elementOpts && this.elementOpts.width ? this.elementOpts.width : null
+        updateElementOptsW() {
+            return this.elementOpts && this.elementOpts.width
+                ? this.elementOpts.width
+                : null;
         }
     },
     created() {
@@ -196,65 +216,84 @@ export default {
     },
     watch: {
         category(val) {
-            this.items = formElements[val];
-            if(!this.updating){
-                this.resetFormManager();
+            if (val) {
+                this.items = formElements[val];
+                if (!this.updating) {
+                    this.resetFormManager();
+                }
             }
         },
-        selectedElement(val){
-            if(val){
-                if(!this.updating){
-                    console.log("set initial properties", val)
-                
-                    this.element = this.initials.additionalProps[val] ? 
-                    JSON.parse(JSON.stringify(this.initials.additionalProps[val])) : 
-                    {}
-                } 
-                this.elementOpts = {...this.initials.elementOpts[val], ...this.elementOpts}
+        selectedElement(val) {
+            if (val) {
+                if (!this.updating) {
+                    console.log("set initial properties", val);
+
+                    this.element = this.initials.additionalProps[val]
+                        ? JSON.parse(
+                              JSON.stringify(this.initials.additionalProps[val])
+                          )
+                        : {};
+                }
+                this.elementOpts = {
+                    ...this.initials.elementOpts[val],
+                    ...this.elementOpts
+                };
             }
-            if(this.updating){
-                this.updating = false
-            }
-        },
-        updateItem(val){
-            this.updating = true
-            if(val){
-                console.log(val, "update")
-                this.updateFormManager(val)
+            if (this.updating) {
+                this.updating = false;
             }
         },
-        updateItemW(val){
-            this.elementOpts.width = val
+        updateItem(val) {
+            this.updating = true;
+            if (val) {
+                console.log(val, "update");
+                this.updateFormManager(val);
+            }
+        },
+        updateItemW(val) {
+            if (val) {
+                this.elementOpts.width = val;
+            }
         },
         updateItemH(val) {
-            this.elementOpts.height = val
-        },
-        updateElementOptsW(val){
-            if(val && this.updateItem){
-                this.$emit('changeWH', {i: this.updateItem.i, type: "w", val: parseInt(val)})
+            if (val) {
+                this.elementOpts.height = val;
             }
         },
-        updateElementOptsH(val){
-            if(val && this.updateItem){
-                this.$emit('changeWH', {i: this.updateItem.i, type: "h", val: parseInt(val)})
+        updateElementOptsW(val) {
+            if (val && this.updateItem) {
+                this.$emit("changeWH", {
+                    i: this.updateItem.i,
+                    type: "w",
+                    val: parseInt(val)
+                });
+            }
+        },
+        updateElementOptsH(val) {
+            if (val && this.updateItem) {
+                this.$emit("changeWH", {
+                    i: this.updateItem.i,
+                    type: "h",
+                    val: parseInt(val)
+                });
             }
         }
     },
     methods: {
-        updateFormManager(val){
-            this.category = val.element.category
-            this.selectedElement = val.element.component
-            this.element = val.element
+        updateFormManager(val) {
+            this.category = val.element.category;
+            this.selectedElement = val.element.component;
+            this.element = val.element;
             this.elementOpts = {
                 addToBottom: true,
                 width: val.w,
                 height: val.h,
                 minH: val.minH,
                 maxH: val.maxH
-            }
+            };
         },
         resetFormManager() {
-            console.log("form reset")
+            console.log("form reset");
             this.element = {};
             this.selectedElement = false;
             this.resetElementOpts();
@@ -263,11 +302,11 @@ export default {
             this.elementOpts = {
                 addToBottom: true,
                 width: 12,
-                height: 2,
-            }
+                height: 2
+            };
         },
         submit(e) {
-            this.$emit('addToForm', {
+            this.$emit("addToForm", {
                 addToBottom: this.elementOpts.addToBottom,
                 x: 0,
                 w: parseInt(this.elementOpts.width),
@@ -276,14 +315,15 @@ export default {
                 maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {
                     ...e,
-                    category: this.category, 
+                    key: this.category === 'input' && !e.key ? `label${this.noOfEl}` : e.key,
+                    category: this.category,
                     component: this.selectedElement
                 }
-            })
-            this.resetFormManager()
+            });
+            this.resetFormManager();
         },
         update(e) {
-            this.$emit('updateElement', {
+            this.$emit("updateElement", {
                 ...this.updateItem,
                 h: parseInt(this.elementOpts.height),
                 w: parseInt(this.elementOpts.width),
@@ -291,11 +331,12 @@ export default {
                 maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {
                     ...e,
-                    category: this.category, 
+                    key: this.category === 'input' && !e.key ? `label${this.updateItem.i}` : e.key,
+                    category: this.category,
                     component: this.selectedElement
                 }
-            })
-            this.resetFormManager()
+            });
+            this.resetFormManager();
         }
     }
 };
@@ -303,7 +344,7 @@ export default {
 
 <style lang="css" scoped>
 .grid-item {
-    background: #B2DFDB;
-    border: 1px dashed #6D4C41;
+    background: #b2dfdb;
+    border: 1px dashed #6d4c41;
 }
 </style>

@@ -2,7 +2,7 @@
     <div>
         <v-row>
             <v-col cols="8" class="px-5">
-                <v-card min-height="80vh" elevation="15">
+                <v-card min-height="80vh" elevation="20">
                     <grid-layout
                         :layout.sync="layout"
                         :col-num="12"
@@ -38,7 +38,7 @@
 
             <v-col class="px-5" cols="4">
                 form: {{ form }} <br />
-                <FormManager :updateItem="updateItem" 
+                <FormManager :updateItem="updateItem" :noOfEl="layout.length"
                 @addToForm="addToForm" 
                 @updateElement="updateElement"
                 @changeWH="changeWH"
