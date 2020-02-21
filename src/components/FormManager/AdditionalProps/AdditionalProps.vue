@@ -1,12 +1,13 @@
 <template>
 <div>
-    <component :is="component" :element="element"></component>
+    <component :is="component" :element="element" :error="error"></component>
     <v-radio-group v-model="element.type" v-if="category === 'input'">
-        <v-radio label="Regular" color="blue" value="regular"></v-radio>
-        <v-radio label="Solo" color="blue" value="solo"></v-radio>
-        <v-radio label="Outlined" color="blue" value="outlined"></v-radio>
-        <v-radio label="Filled" color="blue" value="filled"></v-radio>
+        <v-radio label="Regular" color="cyan" value="regular"></v-radio>
+        <v-radio label="Solo" color="cyan" value="solo"></v-radio>
+        <v-radio label="Outlined" color="cyan" value="outlined"></v-radio>
+        <v-radio label="Filled" color="cyan" value="filled"></v-radio>
     </v-radio-group>
+    {{error}}
 
     {{element}}
 </div>
@@ -25,7 +26,7 @@ import VTextArea from '@/components/FormManager/AdditionalProps/input/VTextArea'
             VTextField,
             VTextArea
         },
-        props: ["component", "element", "category"],
+        props: ["component", "element", "category", "error"],
         data() {
             return {
                 SimpleText: "SimpleText",

@@ -11,6 +11,7 @@
             <v-textarea
                 v-model="form['label0']"
                 label=""
+                :auto-grow="false"
                 filled
             ></v-textarea>
             
@@ -62,6 +63,7 @@ const getElementStr = item => {
             <v-textarea
                 v-model="form['${element.key}']"
                 label="${element.label || ""}"
+                :auto-grow="false"
                 ${inputType}
             ></v-textarea>
             `

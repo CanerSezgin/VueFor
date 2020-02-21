@@ -2,6 +2,7 @@
 
     <div v-if="opts">
         <v-textarea
+            :auto-grow="false"
             class="mt-1"
             v-if="!opts.isPreview"
             :label="opts.label"
@@ -15,6 +16,7 @@
 
         <!-- Preview -->
         <v-textarea
+            :auto-grow="false"
             class="mt-1"
             v-if="opts.isPreview"
             :label="opts.label"

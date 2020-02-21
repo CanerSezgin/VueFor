@@ -1,5 +1,6 @@
 <template>
     <div id="form-manager">
+        {{error}}
         <v-card dark class="pa-5">
             <v-card-text class="white--text">
                 <h3>Form Element Category</h3>
@@ -22,12 +23,12 @@
                     <v-radio-group v-model="category">
                         <v-radio
                             label="Static"
-                            color="blue"
+                            color="cyan"
                             value="static"
                         ></v-radio>
                         <v-radio
                             label="Input"
-                            color="blue"
+                            color="cyan"
                             value="input"
                         ></v-radio>
                     </v-radio-group>
@@ -55,6 +56,7 @@
                     :category="category"
                     :component="selectedElement"
                     :element="element"
+                    :error="error"
                 />
             </div>
         </v-card>
@@ -66,7 +68,7 @@
 
             <div class="grid-item px-5 py-2">
                 <!-- Previev of The Form Element -->
-                {{element}} {{selectedElement}}
+                {{ element }} {{ selectedElement }}
                 <FormElements
                     :opts="{
                         ...element,
@@ -117,7 +119,7 @@
                     <v-col cols="3">
                         <v-btn
                             @click="
-                                updateItem ? update(element) : submit(element)
+                                updateItem ? submit(element, 'update') : submit(element, 'add')
                             "
                             absolute
                             large
@@ -161,11 +163,11 @@ const formElements = {
     input: [
         new FormElementSelection("Text Field", "VTextField"),
         new FormElementSelection("Text Area", "VTextArea")
-    ],
+    ]
 };
 
 export default {
-    props: ["updateItem", "noOfEl"],
+    props: ["updateItem", "layout"],
     components: {
         FormElements,
         AdditionalProps,
@@ -173,6 +175,7 @@ export default {
     },
     data() {
         return {
+            error: null,
             updating: false,
 
             element: {},
@@ -188,8 +191,8 @@ export default {
             initials: {
                 additionalProps: {
                     SimpleText: { type: "p" },
-                    VTextField: { type: "regular"},
-                    VTextArea: { type: "regular"},
+                    VTextField: { type: "regular" },
+                    VTextArea: { type: "regular" }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
@@ -199,6 +202,9 @@ export default {
         };
     },
     computed: {
+        selectedElementKey() {
+            return this.category === 'input' ? this.element.key : null;
+        },
         updateItemH() {
             return this.updateItem ? this.updateItem.h : null;
         },
@@ -244,21 +250,31 @@ export default {
                 }
                 this.elementOpts = {
                     ...this.elementOpts,
-                    ...this.initials.elementOpts[val],
+                    ...this.initials.elementOpts[val]
                 };
 
-                if(this.elementOpts.minH > this.elementOpts.height){
-                    this.elementOpts.height = this.elementOpts.minH
+                if (this.elementOpts.minH > this.elementOpts.height) {
+                    this.elementOpts.height = this.elementOpts.minH;
                 }
 
-                if(this.elementOpts.maxH < this.elementOpts.height){
-                    this.elementOpts.height = this.elementOpts.maxH
+                if (this.elementOpts.maxH < this.elementOpts.height) {
+                    this.elementOpts.height = this.elementOpts.maxH;
                 }
 
-                console.log(this.elementOpts, val, this.initials.elementOpts[val], this.elementOpts)
+                console.log(
+                    this.elementOpts,
+                    val,
+                    this.initials.elementOpts[val],
+                    this.elementOpts
+                );
             }
             if (this.updating) {
                 this.updating = false;
+            }
+        },
+        selectedElementKey(val){
+            if(val){
+                this.error = this.checkInputKey(val)
             }
         },
         updateItem(val) {
@@ -323,7 +339,29 @@ export default {
                 height: 2
             };
         },
-        submit(e) {
+        checkInputKey(key){
+            const sameKey = this.layout.find(item => item.element.key === key) ? true : false;
+
+            if(sameKey){
+                return "Form contains already same 'key'. Use unique key."
+            }
+
+            return null
+        },
+        submit(element, action) {
+            if(this.category === 'input'){
+                if(!this.error){
+                    if(this.element.key){
+                        this[action](element)
+                    } else {
+                        this.error = "Form Key can not be empty."
+                    }
+                }
+            } else {
+                this[action](element)
+            }
+        },
+        add(e) {
             this.$emit("addToForm", {
                 addToBottom: this.elementOpts.addToBottom,
                 x: 0,
@@ -333,13 +371,17 @@ export default {
                 maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {
                     ...e,
-                    key: this.category === 'input' && !e.key ? `label${this.noOfEl}` : e.key,
+                    key:
+                        this.category === "input" && !e.key
+                            ? `label${this.layout.length}`
+                            : e.key,
                     category: this.category,
                     component: this.selectedElement
                 }
             });
             this.resetFormManager();
         },
+
         update(e) {
             this.$emit("updateElement", {
                 ...this.updateItem,
@@ -349,7 +391,10 @@ export default {
                 maxH: parseInt(this.elementOpts.maxH) || 12,
                 element: {
                     ...e,
-                    key: this.category === 'input' && !e.key ? `label${this.updateItem.i}` : e.key,
+                    key:
+                        this.category === "input" && !e.key
+                            ? `label${this.updateItem.i}`
+                            : e.key,
                     category: this.category,
                     component: this.selectedElement
                 }

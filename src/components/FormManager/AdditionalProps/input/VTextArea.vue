@@ -12,6 +12,7 @@
             <!-- TODO: Add Validation: Key can not be null -->
             <v-text-field
                 v-model="element.key"
+                :error-messages="error"
                 label="Form Key"
                 required
             ></v-text-field>
@@ -21,7 +22,7 @@
 
 <script>
 export default {
-    props: ["element"]
+    props: ["element", "error"]
 };
 </script>
 

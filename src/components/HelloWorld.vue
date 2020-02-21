@@ -38,7 +38,7 @@
 
             <v-col class="px-5" cols="4">
                 form: {{ form }} <br />
-                <FormManager :updateItem="updateItem" :noOfEl="layout.length"
+                <FormManager :updateItem="updateItem" :layout="layout"
                 @addToForm="addToForm" 
                 @updateElement="updateElement"
                 @changeWH="changeWH"
