@@ -1,24 +1,29 @@
 <template>
 
     <div v-if="opts">
-        <v-text-field
+        <v-textarea
             class="mt-1"
             v-if="!opts.isPreview"
+            :label="opts.label"
+            v-model="opts.form[opts.key]"
+
             :outlined="opts.type === 'outlined'"
             :filled="opts.type === 'filled'"
             :solo="opts.type === 'solo'"
-            v-model="opts.form[opts.key]"
-            :label="opts.label"
-        ></v-text-field>
+
+        ></v-textarea>
 
         <!-- Preview -->
-        <v-text-field
+        <v-textarea
+            class="mt-1"
             v-if="opts.isPreview"
+            :label="opts.label"
+
             :outlined="opts.type === 'outlined'"
             :filled="opts.type === 'filled'"
             :solo="opts.type === 'solo'"
-            :label="opts.label"
-        ></v-text-field>
+
+        ></v-textarea>
 
     </div>
 

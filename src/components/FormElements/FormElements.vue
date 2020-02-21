@@ -4,17 +4,23 @@
 
 <script>
 import SimpleText from '@/components/FormElements/static/SimpleText';
+
 import VTextField from '@/components/FormElements/input/VTextField';
+import VTextArea from '@/components/FormElements/input/VTextArea';
     export default {
         components: {
             SimpleText,
-            VTextField
+
+            VTextField,
+            VTextArea
         },
         props: ["opts"],
         data() {
             return {
+                SimpleText: "SimpleText",
+
                 VTextField: "VTextField",
-                SimpleText: "SimpleText"
+                VTextArea: "VTextArea",
             }
         },
     }

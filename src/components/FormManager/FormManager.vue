@@ -52,6 +52,7 @@
                 </v-row>
                 <!-- Additional Properties -->
                 <AdditionalProps
+                    :category="category"
                     :component="selectedElement"
                     :element="element"
                 />
@@ -65,6 +66,7 @@
 
             <div class="grid-item px-5 py-2">
                 <!-- Previev of The Form Element -->
+                {{element}} {{selectedElement}}
                 <FormElements
                     :opts="{
                         ...element,
@@ -95,7 +97,7 @@
                                     label="H"
                                     field="height"
                                     :form="elementOpts"
-                                    :min="1"
+                                    :min="elementOpts.minH || 1"
                                     :max="12"
                                     :disabled="elementOpts.disableH"
                                 />
@@ -156,7 +158,10 @@ class FormElementSelection {
 
 const formElements = {
     static: [new FormElementSelection("Simple Text", "SimpleText")],
-    input: [new FormElementSelection("Text Field", "VTextField")]
+    input: [
+        new FormElementSelection("Text Field", "VTextField"),
+        new FormElementSelection("Text Area", "VTextArea")
+    ],
 };
 
 export default {
@@ -182,10 +187,13 @@ export default {
             // Initials
             initials: {
                 additionalProps: {
-                    SimpleText: { type: "p" }
+                    SimpleText: { type: "p" },
+                    VTextField: { type: "regular"},
+                    VTextArea: { type: "regular"},
                 },
                 elementOpts: {
-                    VTextField: { minH: 2, maxH: 2, disableH: true }
+                    VTextField: { minH: 2, maxH: 2, disableH: true },
+                    VTextArea: { minH: 5, maxH: 12, disableH: false }
                 }
             }
         };
@@ -235,9 +243,19 @@ export default {
                         : {};
                 }
                 this.elementOpts = {
+                    ...this.elementOpts,
                     ...this.initials.elementOpts[val],
-                    ...this.elementOpts
                 };
+
+                if(this.elementOpts.minH > this.elementOpts.height){
+                    this.elementOpts.height = this.elementOpts.minH
+                }
+
+                if(this.elementOpts.maxH < this.elementOpts.height){
+                    this.elementOpts.height = this.elementOpts.maxH
+                }
+
+                console.log(this.elementOpts, val, this.initials.elementOpts[val], this.elementOpts)
             }
             if (this.updating) {
                 this.updating = false;
