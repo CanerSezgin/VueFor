@@ -8,8 +8,6 @@
             ></v-text-field>
         </v-col>
         <v-col cols="6">
-            <!-- TODO: Add Validation: Same Key can not be used -->
-            <!-- TODO: Add Validation: Key can not be null -->
             <v-text-field
                 v-model="element.key"
                 :error-messages="error"

@@ -340,7 +340,12 @@ export default {
             };
         },
         checkInputKey(key){
-            const sameKey = this.layout.find(item => item.element.key === key) ? true : false;
+            let sameKey;
+            if(this.updateItem){
+                sameKey = this.layout.find(item => item.i !== this.updateItem.i && item.element.key === key) ? true : false;
+            } else {
+                sameKey = this.layout.find(item => item.element.key === key) ? true : false;
+            }
 
             if(sameKey){
                 return "Form contains already same 'key'. Use unique key."
