@@ -138,7 +138,6 @@ export default {
 
 <style lang="css" scoped>
 .grid-item {
-    background: #E0F2F1;
     border: 1px dashed #6D4C41;
 }
 .grid-selected-item {

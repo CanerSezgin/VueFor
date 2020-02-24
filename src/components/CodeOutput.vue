@@ -2,32 +2,33 @@
     <div>
 
 <v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(13, 40px [row-start])',
+    gridTemplateRows: 'repeat(6, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
 }">
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 11 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
     
-            <v-textarea
-                v-model="form['label0']"
-                label=""
-                :auto-grow="false"
-                filled
-            ></v-textarea>
+            <v-combobox
+                v-model="form['q']"
+                label="s"
+                :items='[" dsfdsf ","fdshg dgf","ghgfdhgfd","zzz"]'
+                regular
+            ></v-combobox>
             
     </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '11 / 1 / 12 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 1 / 5 / 13'}">
     
-            <h3></h3>
+            <p></p>
             
     </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '12 / 1 / 14 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 1 / 7 / 13'}">
     
-            <v-text-field
-                v-model="form['label2']"
-                label=""
-                outlined
-            ></v-text-field>
+            <v-combobox
+                v-model="form['qq']"
+                label="w"
+                :items='["qq","ww"]'
+                regular
+            ></v-combobox>
             
     </div>
     
@@ -69,6 +70,18 @@ const getElementStr = item => {
             `
             break;
 
+        // TODO: Separate items from html template (put in data)
+        case 'VCombobox':
+            FormElementStr = `
+            <v-combobox
+                v-model="form['${element.key}']"
+                label="${element.label || ""}"
+                :items='${JSON.stringify(element.items)}'
+                ${inputType}
+            ></v-combobox>
+            `
+            break;
+
         // Statics
         case 'SimpleText': 
             FormElementStr = `
@@ -94,7 +107,7 @@ export default {
     },
     data() {
         return {
-            layout: [ { "x": 0, "w": 12, "h": 10, "minH": 5, "maxH": 12, "element": { "type": "filled", "key": "label0", "category": "input", "component": "VTextArea" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 1, "minH": 1, "maxH": 12, "element": { "type": "h3", "category": "static", "component": "SimpleText" }, "i": 1, "y": 10, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "outlined", "key": "label2", "category": "input", "component": "VTextField" }, "i": 2, "y": 11, "moved": false } ],
+            layout:  [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ " dsfdsf ", "fdshg dgf", "ghgfdhgfd", "zzz" ], "label": "s", "key": "q", "category": "input", "component": "VCombobox" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "category": "static", "component": "SimpleText", "type": "p" }, "i": 1, "y": 2, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "qq", "ww" ], "key": "qq", "label": "w", "category": "input", "component": "VCombobox" }, "i": 2, "y": 4, "moved": false } ],
             form: {}
         };
     },

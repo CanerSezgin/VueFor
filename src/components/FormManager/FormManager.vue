@@ -162,7 +162,8 @@ const formElements = {
     static: [new FormElementSelection("Simple Text", "SimpleText")],
     input: [
         new FormElementSelection("Text Field", "VTextField"),
-        new FormElementSelection("Text Area", "VTextArea")
+        new FormElementSelection("Text Area", "VTextArea"),
+        new FormElementSelection("Combobox", "VCombobox"),
     ]
 };
 
@@ -192,10 +193,12 @@ export default {
                 additionalProps: {
                     SimpleText: { type: "p" },
                     VTextField: { type: "regular" },
-                    VTextArea: { type: "regular" }
+                    VTextArea: { type: "regular" },
+                    VCombobox: { type: "regular", items: [] }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
+                    VCombobox: { minH: 2, maxH: 2, disableH: true },
                     VTextArea: { minH: 5, maxH: 12, disableH: false }
                 }
             }
