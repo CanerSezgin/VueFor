@@ -6,7 +6,7 @@
             :label="opts.label"
             v-model="opts.form[opts.key]"
             :items="opts.items"
-            :multiple="false"
+            :multiple="opts.multiple"
             :outlined="opts.type === 'outlined'"
             :filled="opts.type === 'filled'"
             :solo="opts.type === 'solo'"
@@ -18,7 +18,7 @@
             v-if="opts.isPreview"
             :label="opts.label"
             :items="opts.items"
-            :multiple="false"
+            :multiple="opts.multiple"
             :outlined="opts.type === 'outlined'"
             :filled="opts.type === 'filled'"
             :solo="opts.type === 'solo'"
@@ -28,7 +28,21 @@
 
 <script>
 export default {
-    props: ["opts"]
+    props: ["opts"],
+    computed: {
+        multiple() {
+            return this.opts ? this.opts.multiple : "N.A.";
+        }
+    },
+    watch: {
+        multiple(val) {
+            if (val !== "N.A.") {
+                if (this.opts.form && this.opts.form[this.opts.key]) {
+                    this.opts.form[this.opts.key] = val ? [] : "";
+                }
+            }
+        }
+    }
 };
 </script>
 

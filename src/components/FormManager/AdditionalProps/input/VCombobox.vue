@@ -18,6 +18,8 @@
             </v-col>
         </v-row>
         <ArrayController :items="element.items" />
+        <v-checkbox v-model="element.multiple" :label="`Multiple Selection`"
+    ></v-checkbox>
     </div>
 </template>
 

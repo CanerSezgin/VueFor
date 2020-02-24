@@ -3,6 +3,7 @@
         <v-row>
             <v-col cols="9" class="py-0">
                 <v-text-field
+                    @keyup.enter="addItem"
                     outlined
                     v-model="item"
                     label="Items"

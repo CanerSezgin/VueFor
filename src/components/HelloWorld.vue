@@ -78,9 +78,6 @@ export default {
         layout: []
     }),
     methods: {
-        exit() {
-            console.log("exit")
-        },
         changeWH(data){
             const index = this.layout.findIndex(item => item.i === data.i) 
             switch (data.type) {

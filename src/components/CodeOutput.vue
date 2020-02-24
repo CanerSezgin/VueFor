@@ -2,31 +2,17 @@
     <div>
 
 <v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(6, 40px [row-start])',
+    gridTemplateRows: 'repeat(2, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
 }">
     <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
     
             <v-combobox
-                v-model="form['q']"
-                label="s"
-                :items='[" dsfdsf ","fdshg dgf","ghgfdhgfd","zzz"]'
-                regular
-            ></v-combobox>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 1 / 5 / 13'}">
-    
-            <p></p>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 1 / 7 / 13'}">
-    
-            <v-combobox
-                v-model="form['qq']"
-                label="w"
-                :items='["qq","ww"]'
+                v-model="form['sd']"
+                label="d"
+                :items='["dsfsdf dsfdsf","dsfdsh ","sdfgj h","hhj","hgj"]'
+                :multiple="true"
                 regular
             ></v-combobox>
             
@@ -77,6 +63,7 @@ const getElementStr = item => {
                 v-model="form['${element.key}']"
                 label="${element.label || ""}"
                 :items='${JSON.stringify(element.items)}'
+                :multiple="${element.multiple}"
                 ${inputType}
             ></v-combobox>
             `
@@ -107,7 +94,7 @@ export default {
     },
     data() {
         return {
-            layout:  [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ " dsfdsf ", "fdshg dgf", "ghgfdhgfd", "zzz" ], "label": "s", "key": "q", "category": "input", "component": "VCombobox" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "category": "static", "component": "SimpleText", "type": "p" }, "i": 1, "y": 2, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "qq", "ww" ], "key": "qq", "label": "w", "category": "input", "component": "VCombobox" }, "i": 2, "y": 4, "moved": false } ],
+            layout:   [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "dsfsdf dsfdsf", "dsfdsh ", "sdfgj h", "hhj", "hgj" ], "multiple": true, "key": "sd", "label": "d", "category": "input", "component": "VCombobox" }, "i": 0, "y": 0, "moved": false } ],
             form: {}
         };
     },

@@ -134,6 +134,7 @@
                 </v-row>
             </v-card-text>
         </v-card>
+        updating: {{updating}} <br />
         category: {{ category }} <br />
         selectedElement: {{ selectedElement }} <br />
         -------------------------- <br />
@@ -194,7 +195,7 @@ export default {
                     SimpleText: { type: "p" },
                     VTextField: { type: "regular" },
                     VTextArea: { type: "regular" },
-                    VCombobox: { type: "regular", items: [] }
+                    VCombobox: { type: "regular", items: [], multiple: false }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
@@ -242,6 +243,7 @@ export default {
         },
         selectedElement(val) {
             if (val) {
+                console.log(this.updating)
                 if (!this.updating) {
                     console.log("set initial properties", val);
 
