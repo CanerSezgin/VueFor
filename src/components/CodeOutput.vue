@@ -2,19 +2,45 @@
     <div>
 
 <v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(2, 40px [row-start])',
+    gridTemplateRows: 'repeat(11, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
 }">
     <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
     
-            <v-combobox
-                v-model="form['sd']"
-                label="d"
-                :items='["dsfsdf dsfdsf","dsfdsh ","sdfgj h","hhj","hgj"]'
-                :multiple="true"
+            <v-select
+                v-model="form['dsf']"
+                label="dsfsdf"
+                :items='["dsf","sdf","fdgfgfd","rewwerr"]'
+                :multiple="false"
+                outlined
+            ></v-select>
+            
+    </div>
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 1 / 5 / 13'}">
+    
+            <p>dsffsdsdf dsfsdfssf fsdfsd</p>
+            
+    </div>
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 1 / 10 / 13'}">
+    
+            <v-textarea
+                v-model="form['wqeqwe ddfdsf']"
+                label="sdfsdf"
+                :auto-grow="false"
                 regular
-            ></v-combobox>
+            ></v-textarea>
+            
+    </div>
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '10 / 1 / 12 / 13'}">
+    
+            <v-select
+                v-model="form['dsfs']"
+                label="xzcxzcq"
+                :items='["dsfsdf","dsfdsf","sad sad","fdg fdgfdg"]'
+                :multiple="true"
+                solo
+            ></v-select>
             
     </div>
     
@@ -69,6 +95,19 @@ const getElementStr = item => {
             `
             break;
 
+        // TODO: Separate items from html template (put in data)
+        case 'VSelect':
+            FormElementStr = `
+            <v-select
+                v-model="form['${element.key}']"
+                label="${element.label || ""}"
+                :items='${JSON.stringify(element.items)}'
+                :multiple="${element.multiple}"
+                ${inputType}
+            ></v-select>
+            `
+            break;
+
         // Statics
         case 'SimpleText': 
             FormElementStr = `
@@ -94,7 +133,7 @@ export default {
     },
     data() {
         return {
-            layout:   [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "dsfsdf dsfdsf", "dsfdsh ", "sdfgj h", "hhj", "hgj" ], "multiple": true, "key": "sd", "label": "d", "category": "input", "component": "VCombobox" }, "i": 0, "y": 0, "moved": false } ],
+            layout: [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "outlined", "items": [ "dsf", "sdf", "fdgfgfd", "rewwerr" ], "multiple": false, "label": "dsfsdf", "key": "dsf", "category": "input", "component": "VSelect" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "desc": "dsffsdsdf dsfsdfssf fsdfsd", "type": "p", "category": "static", "component": "SimpleText" }, "i": 1, "y": 2, "moved": false }, { "x": 0, "w": 12, "h": 5, "minH": 5, "maxH": 12, "element": { "type": "regular", "label": "sdfsdf", "key": "wqeqwe ddfdsf", "category": "input", "component": "VTextArea" }, "i": 2, "y": 4, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "solo", "items": [ "dsfsdf", "dsfdsf", "sad sad", "fdg fdgfdg" ], "multiple": true, "label": "xzcxzcq", "key": "dsfs", "category": "input", "component": "VSelect" }, "i": 3, "y": 9, "moved": false } ],
             form: {}
         };
     },

@@ -8,6 +8,7 @@ import SimpleText from '@/components/FormElements/static/SimpleText';
 import VTextField from '@/components/FormElements/input/VTextField';
 import VTextArea from '@/components/FormElements/input/VTextArea';
 import VCombobox from '@/components/FormElements/input/VCombobox';
+import VSelect from '@/components/FormElements/input/VSelect';
 
     export default {
         components: {
@@ -15,7 +16,8 @@ import VCombobox from '@/components/FormElements/input/VCombobox';
 
             VTextField,
             VTextArea,
-            VCombobox
+            VCombobox,
+            VSelect
         },
         props: ["opts"],
         data() {
@@ -24,7 +26,8 @@ import VCombobox from '@/components/FormElements/input/VCombobox';
 
                 VTextField: "VTextField",
                 VTextArea: "VTextArea",
-                VCombobox: "VCombobox"
+                VCombobox: "VCombobox",
+                VSelect: "VSelect",
             }
         },
     }

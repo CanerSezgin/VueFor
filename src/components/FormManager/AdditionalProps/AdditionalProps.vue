@@ -41,6 +41,7 @@ import SimpleText from "@/components/FormManager/AdditionalProps/static/SimpleTe
 import VTextField from "@/components/FormManager/AdditionalProps/input/VTextField";
 import VTextArea from "@/components/FormManager/AdditionalProps/input/VTextArea";
 import VCombobox from "@/components/FormManager/AdditionalProps/input/VCombobox";
+import VSelect from "@/components/FormManager/AdditionalProps/input/VSelect";
 
 export default {
     components: {
@@ -48,7 +49,8 @@ export default {
 
         VTextField,
         VTextArea,
-        VCombobox
+        VCombobox,
+        VSelect
     },
     props: ["component", "element", "category", "error"],
     data() {

@@ -1,5 +1,5 @@
 <template>
-<!-- So similar to VSelect, if you make any changes, make sure you have done for the VSelect as well -->
+<!-- So similar to VCombobox, if you make any changes, make sure you have done for the VCombobox as well -->
     <div>
         <v-row>
             <v-col cols="6" class="py-0 pl-4">

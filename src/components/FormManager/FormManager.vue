@@ -2,6 +2,7 @@
     <div id="form-manager">
         {{error}}
         <v-card dark class="pa-5">
+            <h4 class="red px-5">After updating, initial values are not loaded</h4>
             <v-card-text class="white--text">
                 <h3>Form Element Category</h3>
                 <v-btn
@@ -164,7 +165,8 @@ const formElements = {
     input: [
         new FormElementSelection("Text Field", "VTextField"),
         new FormElementSelection("Text Area", "VTextArea"),
-        new FormElementSelection("Combobox", "VCombobox"),
+        new FormElementSelection("Combo Box", "VCombobox"),
+        new FormElementSelection("Select Box", "VSelect"),
     ]
 };
 
@@ -195,11 +197,13 @@ export default {
                     SimpleText: { type: "p" },
                     VTextField: { type: "regular" },
                     VTextArea: { type: "regular" },
-                    VCombobox: { type: "regular", items: [], multiple: false }
+                    VCombobox: { type: "regular", items: [], multiple: false },
+                    VSelect: { type: "regular", items: [], multiple: false },
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
                     VCombobox: { minH: 2, maxH: 2, disableH: true },
+                    VSelect: { minH: 2, maxH: 2, disableH: true },
                     VTextArea: { minH: 5, maxH: 12, disableH: false }
                 }
             }
