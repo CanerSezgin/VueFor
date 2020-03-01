@@ -2,7 +2,6 @@
     <div id="form-manager">
         {{error}}
         <v-card dark class="pa-5">
-            <h4 class="red px-5">After updating, initial values are not loaded</h4>
             <v-card-text class="white--text">
                 <h3>Form Element Category</h3>
                 <v-btn
@@ -247,7 +246,6 @@ export default {
         },
         selectedElement(val) {
             if (val) {
-                console.log(this.updating)
                 if (!this.updating) {
                     console.log("set initial properties", val);
 
@@ -291,6 +289,8 @@ export default {
             if (val) {
                 console.log(val, "update");
                 this.updateFormManager(val);
+            } else {
+                this.updating = false
             }
         },
         updateItemW(val) {
