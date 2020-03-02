@@ -1,18 +1,18 @@
 <template>
-<!-- So similar to VSwitch, if you make any changes, make sure you have done for the VSwitch as well -->
+<!-- So similar to VCheckbox, if you make any changes, make sure you have done for the VCheckbox as well -->
     <div v-if="opts">
-        <v-checkbox
+        <v-switch
             class="mt-1"
             v-if="!opts.isPreview"
             v-model="opts.form[opts.key]"
             :label="opts.label"
-        ></v-checkbox>
+        ></v-switch>
 
         <!-- Preview -->
-        <v-checkbox
+        <v-switch
             v-if="opts.isPreview"
             :label="opts.label"
-        ></v-checkbox>
+        ></v-switch>
 
     </div>
 

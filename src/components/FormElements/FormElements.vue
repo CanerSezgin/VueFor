@@ -10,6 +10,7 @@ import VTextArea from '@/components/FormElements/input/VTextArea';
 import VCombobox from '@/components/FormElements/input/VCombobox';
 import VSelect from '@/components/FormElements/input/VSelect';
 import VCheckbox from '@/components/FormElements/input/VCheckbox';
+import VSwitch from '@/components/FormElements/input/VSwitch';
 
     export default {
         components: {
@@ -19,20 +20,10 @@ import VCheckbox from '@/components/FormElements/input/VCheckbox';
             VTextArea,
             VCombobox,
             VSelect,
-            VCheckbox
+            VCheckbox,
+            VSwitch
         },
-        props: ["opts"],
-        data() {
-            return {
-                SimpleText: "SimpleText",
-
-                VTextField: "VTextField",
-                VTextArea: "VTextArea",
-                VCombobox: "VCombobox",
-                VSelect: "VSelect",
-                VCheckbox: "VCheckbox"
-            }
-        },
+        props: ["opts"]
     }
 </script>
 

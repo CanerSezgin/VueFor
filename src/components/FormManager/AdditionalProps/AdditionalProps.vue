@@ -44,6 +44,7 @@ import VTextArea from "@/components/FormManager/AdditionalProps/input/VTextArea"
 import VCombobox from "@/components/FormManager/AdditionalProps/input/VCombobox";
 import VSelect from "@/components/FormManager/AdditionalProps/input/VSelect";
 import VCheckbox from "@/components/FormManager/AdditionalProps/input/VCheckbox";
+import VSwitch from "@/components/FormManager/AdditionalProps/input/VSwitch";
 
 export default {
     components: {
@@ -53,7 +54,8 @@ export default {
         VTextArea,
         VCombobox,
         VSelect,
-        VCheckbox
+        VCheckbox,
+        VSwitch
     },
     props: ["component", "element", "category", "error"],
     computed: {
