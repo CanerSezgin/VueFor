@@ -2,49 +2,42 @@
     <div>
 
 <v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(11, 40px [row-start])',
+    gridTemplateRows: 'repeat(8, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
 }">
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 7 / 3'}">
     
-            <v-select
-                v-model="form['dsf']"
-                label="dsfsdf"
-                :items='["dsf","sdf","fdgfgfd","rewwerr"]'
-                :multiple="false"
-                outlined
-            ></v-select>
+            <v-checkbox
+                v-model="form['w']"
+                label="aqqq asas dsfdsddd dddddddddd sadasddsa sadas sad sdsadsadsad asdsad asdsad saasdsadasdasdas dasdsad adasd as"
+            ></v-checkbox>
             
     </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 1 / 5 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 3 / 7 / 12'}">
     
-            <p>dsffsdsdf dsfsdfssf fsdfsd</p>
+            <h4>sadasdasasd</h4>
             
     </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 1 / 10 / 13'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '7 / 1 / 9 / 8'}">
     
-            <v-textarea
-                v-model="form['wqeqwe ddfdsf']"
-                label="sdfsdf"
-                :auto-grow="false"
-                regular
-            ></v-textarea>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '10 / 1 / 12 / 13'}">
-    
-            <v-select
-                v-model="form['dsfs']"
-                label="xzcxzcq"
-                :items='["dsfsdf","dsfdsf","sad sad","fdg fdgfdg"]'
+            <v-combobox
+                v-model="form['wqewq']"
+                label="sadsa"
+                :items='["dfsdf","vcxcxv","ewrewr","fsd"]'
                 :multiple="true"
-                solo
-            ></v-select>
+                filled
+            ></v-combobox>
+            
+    </div>
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '7 / 10 / 9 / 13'}">
+    
+            <h3>dfsdfdsdfs</h3>
             
     </div>
     
 </v-card>
+
 
 {{form}}
     </div>
@@ -79,6 +72,15 @@ const getElementStr = item => {
                 :auto-grow="false"
                 ${inputType}
             ></v-textarea>
+            `
+            break;
+
+        case 'VCheckbox':
+            FormElementStr = `
+            <v-checkbox
+                v-model="form['${element.key}']"
+                label="${element.label || ""}"
+            ></v-checkbox>
             `
             break;
 
@@ -133,7 +135,7 @@ export default {
     },
     data() {
         return {
-            layout: [ { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "outlined", "items": [ "dsf", "sdf", "fdgfgfd", "rewwerr" ], "multiple": false, "label": "dsfsdf", "key": "dsf", "category": "input", "component": "VSelect" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "desc": "dsffsdsdf dsfsdfssf fsdfsd", "type": "p", "category": "static", "component": "SimpleText" }, "i": 1, "y": 2, "moved": false }, { "x": 0, "w": 12, "h": 5, "minH": 5, "maxH": 12, "element": { "type": "regular", "label": "sdfsdf", "key": "wqeqwe ddfdsf", "category": "input", "component": "VTextArea" }, "i": 2, "y": 4, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "solo", "items": [ "dsfsdf", "dsfdsf", "sad sad", "fdg fdgfdg" ], "multiple": true, "label": "xzcxzcq", "key": "dsfs", "category": "input", "component": "VSelect" }, "i": 3, "y": 9, "moved": false } ],
+            layout:   [ { "x": 0, "w": 2, "h": 6, "minH": 1, "maxH": 12, "element": { "label": "aqqq asas dsfdsddd dddddddddd sadasddsa sadas sad sdsadsadsad asdsad asdsad saasdsadasdasdas dasdsad adasd as", "key": "w", "category": "input", "component": "VCheckbox" }, "i": 0, "y": 0, "moved": false }, { "x": 2, "w": 9, "h": 6, "minH": 1, "maxH": 12, "element": { "type": "h4", "desc": "sadasdasasd", "category": "static", "component": "SimpleText" }, "i": 1, "y": 0, "moved": false }, { "x": 0, "w": 7, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "filled", "items": [ "dfsdf", "vcxcxv", "ewrewr", "fsd" ], "multiple": true, "label": "sadsa", "key": "wqewq", "category": "input", "component": "VCombobox" }, "i": 2, "y": 6, "moved": false }, { "x": 9, "w": 3, "h": 2, "minH": 1, "maxH": 12, "element": { "type": "h3", "desc": "dfsdfdsdfs", "category": "static", "component": "SimpleText" }, "i": 3, "y": 6, "moved": false } ],
             form: {}
         };
     },

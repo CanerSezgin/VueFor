@@ -5,7 +5,8 @@
             :element="element"
             :error="error"
         ></component>
-        <v-radio-group v-model="element.type" v-if="category === 'input'">
+        {{element}}
+        <v-radio-group v-model="element.type" v-if="hasType">
             <v-row>
                 <v-col cols="6">
                     <v-radio
@@ -42,6 +43,7 @@ import VTextField from "@/components/FormManager/AdditionalProps/input/VTextFiel
 import VTextArea from "@/components/FormManager/AdditionalProps/input/VTextArea";
 import VCombobox from "@/components/FormManager/AdditionalProps/input/VCombobox";
 import VSelect from "@/components/FormManager/AdditionalProps/input/VSelect";
+import VCheckbox from "@/components/FormManager/AdditionalProps/input/VCheckbox";
 
 export default {
     components: {
@@ -50,17 +52,14 @@ export default {
         VTextField,
         VTextArea,
         VCombobox,
-        VSelect
+        VSelect,
+        VCheckbox
     },
     props: ["component", "element", "category", "error"],
-    data() {
-        return {
-            SimpleText: "SimpleText",
-
-            VTextField: "VTextField",
-            VTextArea: "VTextArea",
-            VCombobox: "VCombobox"
-        };
+    computed: {
+        hasType() {
+            return this.category === 'input' && 'type' in this.element
+        }
     }
 };
 </script>

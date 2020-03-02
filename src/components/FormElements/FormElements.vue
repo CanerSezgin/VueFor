@@ -9,6 +9,7 @@ import VTextField from '@/components/FormElements/input/VTextField';
 import VTextArea from '@/components/FormElements/input/VTextArea';
 import VCombobox from '@/components/FormElements/input/VCombobox';
 import VSelect from '@/components/FormElements/input/VSelect';
+import VCheckbox from '@/components/FormElements/input/VCheckbox';
 
     export default {
         components: {
@@ -17,7 +18,8 @@ import VSelect from '@/components/FormElements/input/VSelect';
             VTextField,
             VTextArea,
             VCombobox,
-            VSelect
+            VSelect,
+            VCheckbox
         },
         props: ["opts"],
         data() {
@@ -28,6 +30,7 @@ import VSelect from '@/components/FormElements/input/VSelect';
                 VTextArea: "VTextArea",
                 VCombobox: "VCombobox",
                 VSelect: "VSelect",
+                VCheckbox: "VCheckbox"
             }
         },
     }
