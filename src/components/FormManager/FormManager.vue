@@ -20,16 +20,26 @@
             <v-row no-gutters>
                 <v-col>
                     <div></div>
-                    <v-radio-group v-model="category">
+                    <v-radio-group v-model="elementSelector">
                         <v-radio
-                            label="Static"
+                            label="Static Elements"
                             color="cyan"
                             value="static"
                         ></v-radio>
                         <v-radio
-                            label="Input"
+                            label="Inputs"
                             color="cyan"
                             value="input"
+                        ></v-radio>
+                        <v-radio
+                            label="Multiple Selectors"
+                            color="cyan"
+                            value="selector"
+                        ></v-radio>
+                        <v-radio
+                            label="Boolean Selectors"
+                            color="cyan"
+                            value="boolean"
                         ></v-radio>
                     </v-radio-group>
                 </v-col>
@@ -136,6 +146,7 @@
         </v-card>
         updating: {{updating}} <br />
         category: {{ category }} <br />
+        elementSelector: {{ elementSelector }} <br />
         selectedElement: {{ selectedElement }} <br />
         -------------------------- <br />
         element: {{ element }} <br />
@@ -164,9 +175,13 @@ const formElements = {
     input: [
         new FormElementSelection("Text Field", "VTextField"),
         new FormElementSelection("Text Area", "VTextArea"),
+    ],
+    selector: [
         new FormElementSelection("Select Box", "VSelect"),
-        new FormElementSelection("Radio Buttons", "VRadio"),
         new FormElementSelection("Combobox", "VCombobox"),
+        new FormElementSelection("Radio Buttons", "VRadio"),
+    ],
+    boolean: [
         new FormElementSelection("Checkbox", "VCheckbox"),
         new FormElementSelection("Switch", "VSwitch"),
     ]
@@ -191,6 +206,7 @@ export default {
 
             // Choose Form Element
             category: null,
+            elementSelector: null,
             items: [],
 
             // Initials
@@ -238,12 +254,18 @@ export default {
     },
     created() {
         // Set Form Element Category at the beginning.
-        this.category = "static";
+        this.elementSelector = "static";
         // Set Element Options
         this.resetFormManager();
     },
     watch: {
-        category(val) {
+        elementSelector(val){
+            if(val === 'input' || val === 'selector' || val === 'boolean') {
+                this.category = 'input'
+            } else {
+                this.category = val
+            }
+            
             if (val) {
                 this.items = formElements[val];
                 if (!this.updating) {
