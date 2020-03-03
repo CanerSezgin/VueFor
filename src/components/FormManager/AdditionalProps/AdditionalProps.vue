@@ -45,6 +45,7 @@ import VCombobox from "@/components/FormManager/AdditionalProps/input/VCombobox"
 import VSelect from "@/components/FormManager/AdditionalProps/input/VSelect";
 import VCheckbox from "@/components/FormManager/AdditionalProps/input/VCheckbox";
 import VSwitch from "@/components/FormManager/AdditionalProps/input/VSwitch";
+import VRadio from "@/components/FormManager/AdditionalProps/input/VRadio";
 
 export default {
     components: {
@@ -55,7 +56,8 @@ export default {
         VCombobox,
         VSelect,
         VCheckbox,
-        VSwitch
+        VSwitch,
+        VRadio
     },
     props: ["component", "element", "category", "error"],
     computed: {

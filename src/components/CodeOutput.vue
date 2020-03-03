@@ -2,49 +2,23 @@
     <div>
 
 <v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(13, 40px [row-start])',
+    gridTemplateRows: 'repeat(3, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
 }">
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 6 / 5'}">
+    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 4 / 13'}">
     
-            <h1>gfhhgf</h1>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 5 / 3 / 13'}">
-    
-            <v-text-field
-                v-model="form['dfdsf']"
-                label="ewrewr"
-                filled
-            ></v-text-field>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '6 / 1 / 8 / 5'}">
-    
-            <v-combobox
-                v-model="form['erwe']"
-                label="dsf"
-                :items='["cxvsdf","fgddfg","ewrwer","dfgdfg fdg"]'
-                :multiple="false"
-                outlined
-            ></v-combobox>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '8 / 1 / 14 / 5'}">
-    
-            <v-switch
-                v-model="form['657567']"
-                label="hujtyu"
-            ></v-switch>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 6 / 5 / 13'}">
-    
-            <v-checkbox
-                v-model="form['hgjghj']"
-                label="8767"
-            ></v-checkbox>
+            <v-radio-group 
+                v-model="form['asdsad']"
+                label="ısdsadsadasd"
+            >
+            <v-radio
+                v-for='(item, index) in ["sadsad","fdg"]'
+                :key="index"
+                :label="item"
+                :value="item"
+            ></v-radio>
+        </v-radio-group>
             
     </div>
     
@@ -130,6 +104,23 @@ const getElementStr = item => {
             ></v-select>
             `
             break;
+        
+        // TODO: Separate items from html template (put in data)
+        case 'VRadio':
+            FormElementStr = `
+            <v-radio-group 
+                v-model="form['${element.key}']"
+                label="${element.label || ""}"
+            >
+            <v-radio
+                v-for='(item, index) in ${JSON.stringify(element.items)}'
+                :key="index"
+                :label="item"
+                :value="item"
+            ></v-radio>
+        </v-radio-group>
+            `
+            break;
 
         // Statics
         case 'SimpleText': 
@@ -156,7 +147,7 @@ export default {
     },
     data() {
         return {
-            layout:    [ { "x": 0, "w": 4, "h": 5, "minH": 1, "maxH": 12, "element": { "type": "h1", "desc": "gfhhgf", "category": "static", "component": "SimpleText" }, "i": 0, "y": 0, "moved": false }, { "x": 4, "w": 8, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "filled", "label": "ewrewr", "key": "dfdsf", "category": "input", "component": "VTextField" }, "i": 1, "y": 0, "moved": false }, { "x": 0, "w": 4, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "outlined", "items": [ "cxvsdf", "fgddfg", "ewrwer", "dfgdfg fdg" ], "multiple": false, "label": "dsf", "key": "erwe", "category": "input", "component": "VCombobox" }, "i": 2, "y": 5, "moved": false }, { "x": 0, "w": 4, "h": 6, "minH": 1, "maxH": 12, "element": { "label": "hujtyu", "key": "657567", "category": "input", "component": "VSwitch" }, "i": 3, "y": 7, "moved": false }, { "x": 5, "w": 7, "h": 2, "minH": 1, "maxH": 12, "element": { "label": "8767", "key": "hgjghj", "category": "input", "component": "VCheckbox" }, "i": 4, "y": 2, "moved": false } ],
+            layout: [ { "x": 0, "w": 12, "h": 3, "minH": 3, "maxH": 12, "element": { "items": [ "sadsad", "fdg" ], "label": "ısdsadsadasd", "key": "asdsad", "category": "input", "component": "VRadio" }, "i": 0, "y": 0, "moved": false } ],
             form: {}
         };
     },

@@ -165,6 +165,7 @@ const formElements = {
         new FormElementSelection("Text Field", "VTextField"),
         new FormElementSelection("Text Area", "VTextArea"),
         new FormElementSelection("Select Box", "VSelect"),
+        new FormElementSelection("Radio Buttons", "VRadio"),
         new FormElementSelection("Combobox", "VCombobox"),
         new FormElementSelection("Checkbox", "VCheckbox"),
         new FormElementSelection("Switch", "VSwitch"),
@@ -202,12 +203,14 @@ export default {
                     VSelect: { type: "regular", items: [], multiple: false },
                     VCheckbox: {},
                     VSwitch: {},
+                    VRadio: { items: [] }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
                     VCombobox: { minH: 2, maxH: 2, disableH: true },
                     VSelect: { minH: 2, maxH: 2, disableH: true },
-                    VTextArea: { minH: 5, maxH: 12, disableH: false }
+                    VTextArea: { minH: 5, maxH: 12, disableH: false },
+                    VRadio: { minH: 3, maxH: 12, disableH: false }
                 }
             }
         };
