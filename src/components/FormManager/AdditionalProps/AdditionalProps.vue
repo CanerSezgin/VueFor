@@ -9,30 +9,16 @@
         <v-radio-group v-model="element.type" v-if="hasType">
             <v-row>
                 <v-col cols="6">
-                    <v-radio
-                        label="Regular"
-                        color="cyan"
-                        value="regular"
-                    ></v-radio>
+                    <v-radio label="Regular" color="cyan" value="regular"></v-radio>
                     <v-radio label="Solo" color="cyan" value="solo"></v-radio>
                 </v-col>
                 <v-col cols="6">
-                    <v-radio
-                        label="Outlined"
-                        color="cyan"
-                        value="outlined"
+                    <v-radio label="Outlined" color="cyan" value="outlined"
                     ></v-radio>
-                    <v-radio
-                        label="Filled"
-                        color="cyan"
-                        value="filled"
-                    ></v-radio>
+                    <v-radio label="Filled" color="cyan" value="filled"></v-radio>
                 </v-col>
             </v-row>
         </v-radio-group>
-        {{ error }}
-
-        {{ element }}
     </div>
 </template>
 
@@ -45,7 +31,7 @@ import VCombobox from "@/components/FormManager/AdditionalProps/input/VCombobox"
 import VSelect from "@/components/FormManager/AdditionalProps/input/VSelect";
 import VCheckbox from "@/components/FormManager/AdditionalProps/input/VCheckbox";
 import VSwitch from "@/components/FormManager/AdditionalProps/input/VSwitch";
-import VRadio from "@/components/FormManager/AdditionalProps/input/VRadio";
+import VRadioButton from "@/components/FormManager/AdditionalProps/input/VRadioButton";
 
 export default {
     components: {
@@ -57,7 +43,7 @@ export default {
         VSelect,
         VCheckbox,
         VSwitch,
-        VRadio
+        VRadioButton
     },
     props: ["component", "element", "category", "error"],
     computed: {

@@ -11,7 +11,7 @@ import VCombobox from '@/components/FormElements/input/VCombobox';
 import VSelect from '@/components/FormElements/input/VSelect';
 import VCheckbox from '@/components/FormElements/input/VCheckbox';
 import VSwitch from '@/components/FormElements/input/VSwitch';
-import VRadio from '@/components/FormElements/input/VRadio';
+import VRadioButton from '@/components/FormElements/input/VRadioButton';
 
     export default {
         components: {
@@ -23,7 +23,7 @@ import VRadio from '@/components/FormElements/input/VRadio';
             VSelect,
             VCheckbox,
             VSwitch,
-            VRadio
+            VRadioButton
         },
         props: ["opts"]
     }

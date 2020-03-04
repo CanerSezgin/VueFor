@@ -1,8 +1,11 @@
 <template>
     <div>
-        <v-row>
-            <v-col cols="8" class="px-5">
-                <v-card min-height="80vh" elevation="20">
+        <v-row class="my-5">
+            <!-- Form -->
+            <v-col cols="6" class=" offset-2 px-5">
+
+                <v-card min-height="80vh" elevation="16" color="amber lighten-5
+">
                     <grid-layout
                         :layout.sync="layout"
                         :col-num="12"
@@ -34,25 +37,19 @@
                     </div>
                     </grid-layout>
                 </v-card>
+
             </v-col>
 
+            <!-- Form Manager -->
             <v-col class="px-5" cols="4">
-                form: {{ form }} <br />
                 <FormManager :updateItem="updateItem" :layout="layout"
                 @addToForm="addToForm" 
                 @updateElement="updateElement"
                 @changeWH="changeWH"
                 />
-
-                --------------------------------- <br />
-                layout: {{ layout }} <br />
             </v-col>
         </v-row>
 
-        <v-btn @click="saved = !saved">
-            <div v-if="saved">Edit My Form</div>
-            <div v-else>Save My Form</div>
-        </v-btn>
     </div>
 </template>
 
@@ -70,7 +67,6 @@ export default {
         GridItem: VueGridLayout.GridItem
     },
     data: () => ({
-        saved: false,
         form: {},
 
         updateItem: null,

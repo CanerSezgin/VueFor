@@ -1,6 +1,5 @@
 <template>
     <div id="form-manager">
-        {{error}}
         <v-card dark class="pa-5">
             <v-card-text class="white--text">
                 <h3>Form Element Category</h3>
@@ -27,7 +26,7 @@
                             value="static"
                         ></v-radio>
                         <v-radio
-                            label="Inputs"
+                            label="Text Inputs"
                             color="cyan"
                             value="input"
                         ></v-radio>
@@ -78,7 +77,6 @@
 
             <div class="grid-item px-5 py-2">
                 <!-- Previev of The Form Element -->
-                {{ element }} {{ selectedElement }}
                 <FormElements
                     :opts="{
                         ...element,
@@ -144,13 +142,6 @@
                 </v-row>
             </v-card-text>
         </v-card>
-        updating: {{updating}} <br />
-        category: {{ category }} <br />
-        elementSelector: {{ elementSelector }} <br />
-        selectedElement: {{ selectedElement }} <br />
-        -------------------------- <br />
-        element: {{ element }} <br />
-        elementOpts: {{ elementOpts }} <br />
     </div>
 </template>
 
@@ -179,7 +170,7 @@ const formElements = {
     selector: [
         new FormElementSelection("Select Box", "VSelect"),
         new FormElementSelection("Combobox", "VCombobox"),
-        new FormElementSelection("Radio Buttons", "VRadio"),
+        new FormElementSelection("Radio Buttons", "VRadioButton"),
     ],
     boolean: [
         new FormElementSelection("Checkbox", "VCheckbox"),
@@ -219,14 +210,14 @@ export default {
                     VSelect: { type: "regular", items: [], multiple: false },
                     VCheckbox: {},
                     VSwitch: {},
-                    VRadio: { items: [] }
+                    VRadioButton: { items: [] }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
                     VCombobox: { minH: 2, maxH: 2, disableH: true },
                     VSelect: { minH: 2, maxH: 2, disableH: true },
                     VTextArea: { minH: 5, maxH: 12, disableH: false },
-                    VRadio: { minH: 3, maxH: 12, disableH: false }
+                    VRadioButton: { minH: 3, maxH: 12, disableH: false }
                 }
             }
         };

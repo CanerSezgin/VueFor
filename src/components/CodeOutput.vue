@@ -131,7 +131,7 @@ const getElementStr = item => {
             break;
         
         // TODO: Separate items from html template (put in data)
-        case 'VRadio':
+        case 'VRadioButton':
             FormElementStr = `
             <v-radio-group 
                 v-model="form['${element.key}']"
