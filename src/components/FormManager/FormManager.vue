@@ -50,7 +50,66 @@
                         item-value="key"
                         label="Form Element"
                         outlined
+                        hide-details
                     ></v-select>
+
+
+
+
+
+
+                            <v-card v-if="selectedElement">
+
+                                <v-switch
+                                    v-model="elementOpts.addToBottom"
+                                    :label="
+                                        `Add To ${
+                                            elementOpts.addToBottom
+                                                ? 'Bottom'
+                                                : 'Top'
+                                        }`
+                                    "
+                                ></v-switch>
+
+
+
+
+            <v-card-text style="position: relative">
+                <v-row>
+
+                    <v-col cols="3">
+                        <v-btn
+                            @click="
+                                updateItem ? submit(element, 'update') : submit(element, 'add')
+                            "
+                            absolute
+                            large
+                            right
+                            dark
+                            color="pink"
+                        >
+                            <span v-if="updateItem">Update Element</span>
+                            <span v-else>Add Element</span>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+        </v-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </v-col>
             </v-row>
 
@@ -68,40 +127,8 @@
                     :error="error"
                 />
             </div>
-        </v-card>
 
-        <v-card flat class="mt-3" v-if="selectedElement">
-            <v-card dark>
-                <v-card-title>Preview of The Form Element</v-card-title>
-            </v-card>
-
-            <div class="grid-item px-5 py-2">
-                <!-- Previev of The Form Element -->
-                <FormElements
-                    :opts="{
-                        ...element,
-                        component: selectedElement,
-                        isPreview: true
-                    }"
-                />
-            </div>
-
-            <v-card-text style="position: relative">
-                <v-row>
-                    <v-col cols="9">
-                        <v-row no-gutters>
-                            <v-col cols="12">
-                                <v-switch
-                                    v-model="elementOpts.addToBottom"
-                                    :label="
-                                        `Add To ${
-                                            elementOpts.addToBottom
-                                                ? 'Bottom'
-                                                : 'Top'
-                                        }`
-                                    "
-                                ></v-switch>
-                            </v-col>
+               <v-row no-gutters>
                             <v-col cols="6" class="pr-3">
                                 <NumberWithSuffix
                                     label="H"
@@ -123,25 +150,30 @@
                                 />
                             </v-col>
                         </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                        <v-btn
-                            @click="
-                                updateItem ? submit(element, 'update') : submit(element, 'add')
-                            "
-                            absolute
-                            large
-                            right
-                            dark
-                            color="pink"
-                        >
-                            <span v-if="updateItem">Update Element</span>
-                            <span v-else>Add Element</span>
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-card-text>
+
         </v-card>
+
+
+        <!-- Previev of The Form Element -->
+        <div v-if="selectedElement" class="mt-3">
+
+           <v-card dark >
+                <v-card-title>Preview of The Form Element</v-card-title>
+            </v-card>
+
+            <div class="grid-item px-5 py-2">
+                <FormElements
+                    :opts="{
+                        ...element,
+                        component: selectedElement,
+                        isPreview: true
+                    }"
+                />
+            </div>
+            
+        </div>
+
+
     </div>
 </template>
 

@@ -5,9 +5,8 @@
             :element="element"
             :error="error"
         ></component>
-        {{element}}
         <v-radio-group v-model="element.type" v-if="hasType">
-            <v-row>
+            <v-row no-gutters>
                 <v-col cols="6">
                     <v-radio label="Regular" color="cyan" value="regular"></v-radio>
                     <v-radio label="Solo" color="cyan" value="solo"></v-radio>
