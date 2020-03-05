@@ -53,34 +53,21 @@
                         hide-details
                     ></v-select>
 
+                    <v-card v-if="selectedElement">
+                        <v-switch
+                            v-model="elementOpts.addToBottom"
+                            :label="
+                                `Add To ${
+                                    elementOpts.addToBottom ? 'Bottom' : 'Top'
+                                }`
+                            "
+                        ></v-switch>
 
-
-
-
-
-                            <v-card v-if="selectedElement">
-
-                                <v-switch
-                                    v-model="elementOpts.addToBottom"
-                                    :label="
-                                        `Add To ${
-                                            elementOpts.addToBottom
-                                                ? 'Bottom'
-                                                : 'Top'
-                                        }`
-                                    "
-                                ></v-switch>
-
-
-
-
-            <v-card-text style="position: relative">
-                <v-row>
-
-                    <v-col cols="3">
                         <v-btn
                             @click="
-                                updateItem ? submit(element, 'update') : submit(element, 'add')
+                                updateItem
+                                    ? submit(element, 'update')
+                                    : submit(element, 'add')
                             "
                             absolute
                             large
@@ -91,25 +78,7 @@
                             <span v-if="updateItem">Update Element</span>
                             <span v-else>Add Element</span>
                         </v-btn>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-        </v-card>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    </v-card>
                 </v-col>
             </v-row>
 
@@ -126,38 +95,35 @@
                     :element="element"
                     :error="error"
                 />
+
+                <v-row no-gutters>
+                    <v-col cols="6" class="pr-3">
+                        <NumberWithSuffix
+                            label="H"
+                            field="height"
+                            :form="elementOpts"
+                            :min="elementOpts.minH || 1"
+                            :max="12"
+                            :disabled="elementOpts.disableH"
+                        />
+                    </v-col>
+                    <v-col cols="6" class="pr-3">
+                        <NumberWithSuffix
+                            label="W"
+                            field="width"
+                            :form="elementOpts"
+                            :min="1"
+                            :max="12"
+                            :disabled="elementOpts.disableW"
+                        />
+                    </v-col>
+                </v-row>
             </div>
-
-               <v-row no-gutters>
-                            <v-col cols="6" class="pr-3">
-                                <NumberWithSuffix
-                                    label="H"
-                                    field="height"
-                                    :form="elementOpts"
-                                    :min="elementOpts.minH || 1"
-                                    :max="12"
-                                    :disabled="elementOpts.disableH"
-                                />
-                            </v-col>
-                            <v-col cols="6" class="pr-3">
-                                <NumberWithSuffix
-                                    label="W"
-                                    field="width"
-                                    :form="elementOpts"
-                                    :min="1"
-                                    :max="12"
-                                    :disabled="elementOpts.disableW"
-                                />
-                            </v-col>
-                        </v-row>
-
         </v-card>
-
 
         <!-- Previev of The Form Element -->
         <div v-if="selectedElement" class="mt-3">
-
-           <v-card dark >
+            <v-card dark>
                 <v-card-title>Preview of The Form Element</v-card-title>
             </v-card>
 
@@ -170,10 +136,7 @@
                     }"
                 />
             </div>
-            
         </div>
-
-
     </div>
 </template>
 
@@ -197,16 +160,16 @@ const formElements = {
     static: [new FormElementSelection("Simple Text", "SimpleText")],
     input: [
         new FormElementSelection("Text Field", "VTextField"),
-        new FormElementSelection("Text Area", "VTextArea"),
+        new FormElementSelection("Text Area", "VTextArea")
     ],
     selector: [
         new FormElementSelection("Select Box", "VSelect"),
         new FormElementSelection("Combobox", "VCombobox"),
-        new FormElementSelection("Radio Buttons", "VRadioButton"),
+        new FormElementSelection("Radio Buttons", "VRadioButton")
     ],
     boolean: [
         new FormElementSelection("Checkbox", "VCheckbox"),
-        new FormElementSelection("Switch", "VSwitch"),
+        new FormElementSelection("Switch", "VSwitch")
     ]
 };
 
@@ -256,7 +219,7 @@ export default {
     },
     computed: {
         selectedElementKey() {
-            return this.category === 'input' ? this.element.key : null;
+            return this.category === "input" ? this.element.key : null;
         },
         updateItemH() {
             return this.updateItem ? this.updateItem.h : null;
@@ -282,13 +245,13 @@ export default {
         this.resetFormManager();
     },
     watch: {
-        elementSelector(val){
-            if(val === 'input' || val === 'selector' || val === 'boolean') {
-                this.category = 'input'
+        elementSelector(val) {
+            if (val === "input" || val === "selector" || val === "boolean") {
+                this.category = "input";
             } else {
-                this.category = val
+                this.category = val;
             }
-            
+
             if (val) {
                 this.items = formElements[val];
                 if (!this.updating) {
@@ -331,9 +294,9 @@ export default {
                 this.updating = false;
             }
         },
-        selectedElementKey(val){
-            if(val){
-                this.error = this.checkInputKey(val)
+        selectedElementKey(val) {
+            if (val) {
+                this.error = this.checkInputKey(val);
             }
         },
         updateItem(val) {
@@ -342,7 +305,7 @@ export default {
                 console.log(val, "update");
                 this.updateFormManager(val);
             } else {
-                this.updating = false
+                this.updating = false;
             }
         },
         updateItemW(val) {
@@ -400,31 +363,38 @@ export default {
                 height: 2
             };
         },
-        checkInputKey(key){
+        checkInputKey(key) {
             let sameKey;
-            if(this.updateItem){
-                sameKey = this.layout.find(item => item.i !== this.updateItem.i && item.element.key === key) ? true : false;
+            if (this.updateItem) {
+                sameKey = this.layout.find(
+                    item =>
+                        item.i !== this.updateItem.i && item.element.key === key
+                )
+                    ? true
+                    : false;
             } else {
-                sameKey = this.layout.find(item => item.element.key === key) ? true : false;
+                sameKey = this.layout.find(item => item.element.key === key)
+                    ? true
+                    : false;
             }
 
-            if(sameKey){
-                return "Form contains already same 'key'. Use unique key."
+            if (sameKey) {
+                return "Form contains already same 'key'. Use unique key.";
             }
 
-            return null
+            return null;
         },
         submit(element, action) {
-            if(this.category === 'input'){
-                if(!this.error){
-                    if(this.element.key){
-                        this[action](element)
+            if (this.category === "input") {
+                if (!this.error) {
+                    if (this.element.key) {
+                        this[action](element);
                     } else {
-                        this.error = "Form Key can not be empty."
+                        this.error = "Form Key can not be empty.";
                     }
                 }
             } else {
-                this[action](element)
+                this[action](element);
             }
         },
         add(e) {
