@@ -72,6 +72,7 @@
           </v-list-item>
         </template>
       </v-list>
+
     </v-navigation-drawer>
 
     <v-app-bar
@@ -85,18 +86,20 @@
         style="width: 300px"
         class="ml-0 pl-4"
       >
-        <span class="hidden-sm-and-down">Google Contacts</span>
+        <span class="hidden-sm-and-down">VueFor</span>
       </v-toolbar-title>
-      <v-text-field
+
+     <!--  <v-text-field
         flat
         solo-inverted
         hide-details
         prepend-inner-icon="mdi-magnify"
         label="Search"
         class="hidden-sm-and-down"
-      />
+      /> -->
+
       <v-spacer />
-      <v-btn icon>
+<!--       <v-btn icon>
         <v-icon>mdi-apps</v-icon>
       </v-btn>
       <v-btn icon>
@@ -114,7 +117,8 @@
             src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
             alt="Vuetify"
           /></v-avatar>
-      </v-btn>
+      </v-btn> -->
+       <iframe src="https://ghbtns.com/github-btn.html?user=CanerSezgin&repo=VueFor&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
     </v-app-bar>
  </div>
 </template>
@@ -128,10 +132,10 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'mdi-contacts', text: 'Contacts' },
-        { icon: 'mdi-history', text: 'Frequently contacted' },
-        { icon: 'mdi-content-copy', text: 'Duplicates' },
-        {
+        { icon: 'mdi-file', text: 'New Form' },
+        { icon: 'mdi-content-copy', text: 'Pre-made Layouts' },
+
+        /* {
           icon: 'mdi-chevron-up',
           'icon-alt': 'mdi-chevron-down',
           text: 'Labels',
@@ -139,25 +143,8 @@
           children: [
             { icon: 'mdi-plus', text: 'Create label' },
           ],
-        },
-        {
-          icon: 'mdi-chevron-up',
-          'icon-alt': 'mdi-chevron-down',
-          text: 'More',
-          model: false,
-          children: [
-            { text: 'Import' },
-            { text: 'Export' },
-            { text: 'Print' },
-            { text: 'Undo changes' },
-            { text: 'Other contacts' },
-          ],
-        },
-        { icon: 'mdi-settings', text: 'Settings' },
-        { icon: 'mdi-message', text: 'Send feedback' },
-        { icon: 'mdi-help-circle', text: 'Help' },
-        { icon: 'mdi-cellphone-link', text: 'App downloads' },
-        { icon: 'mdi-keyboard', text: 'Go to the old version' },
+        }, */
+        
       ],
     }),
   }

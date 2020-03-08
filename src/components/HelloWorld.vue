@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-row class="mt-3">
+       <v-row class="mt-3">
             <v-col cols="12" lg="11" offset-lg="1">
                 <v-row>
                     <!-- Form -->

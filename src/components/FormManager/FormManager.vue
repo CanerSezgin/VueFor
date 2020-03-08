@@ -22,22 +22,22 @@
                     <v-radio-group v-model="elementSelector">
                         <v-radio
                             label="Static Elements"
-                            color="cyan"
+                            color="pink"
                             value="static"
                         ></v-radio>
                         <v-radio
                             label="Text Inputs"
-                            color="cyan"
+                            color="pink"
                             value="input"
                         ></v-radio>
                         <v-radio
                             label="Multiple Selectors"
-                            color="cyan"
+                            color="pink"
                             value="selector"
                         ></v-radio>
                         <v-radio
                             label="Boolean Selectors"
-                            color="cyan"
+                            color="pink"
                             value="boolean"
                         ></v-radio>
                     </v-radio-group>

@@ -8,13 +8,13 @@
         <v-radio-group v-model="element.type" v-if="hasType">
             <v-row no-gutters>
                 <v-col cols="6">
-                    <v-radio label="Regular" color="cyan" value="regular"></v-radio>
-                    <v-radio label="Solo" color="cyan" value="solo"></v-radio>
+                    <v-radio label="Regular" color="pink" value="regular"></v-radio>
+                    <v-radio label="Solo" color="pink" value="solo"></v-radio>
                 </v-col>
                 <v-col cols="6">
-                    <v-radio label="Outlined" color="cyan" value="outlined"
+                    <v-radio label="Outlined" color="pink" value="outlined"
                     ></v-radio>
-                    <v-radio label="Filled" color="cyan" value="filled"></v-radio>
+                    <v-radio label="Filled" color="pink" value="filled"></v-radio>
                 </v-col>
             </v-row>
         </v-radio-group>
