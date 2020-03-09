@@ -1,6 +1,5 @@
 <template>
     <div id="form-manager">
-        {{error}}
         <v-card dark class="pa-5">
             <v-card-text class="white--text">
                 <h3>Form Element Category</h3>
@@ -23,22 +22,22 @@
                     <v-radio-group v-model="elementSelector">
                         <v-radio
                             label="Static Elements"
-                            color="cyan"
+                            color="pink"
                             value="static"
                         ></v-radio>
                         <v-radio
-                            label="Inputs"
-                            color="cyan"
+                            label="Text Inputs"
+                            color="pink"
                             value="input"
                         ></v-radio>
                         <v-radio
                             label="Multiple Selectors"
-                            color="cyan"
+                            color="pink"
                             value="selector"
                         ></v-radio>
                         <v-radio
                             label="Boolean Selectors"
-                            color="cyan"
+                            color="pink"
                             value="boolean"
                         ></v-radio>
                     </v-radio-group>
@@ -51,7 +50,35 @@
                         item-value="key"
                         label="Form Element"
                         outlined
+                        hide-details
                     ></v-select>
+
+                    <v-card v-if="selectedElement">
+                        <v-switch
+                            v-model="elementOpts.addToBottom"
+                            :label="
+                                `Add To ${
+                                    elementOpts.addToBottom ? 'Bottom' : 'Top'
+                                }`
+                            "
+                        ></v-switch>
+
+                        <v-btn
+                            @click="
+                                updateItem
+                                    ? submit(element, 'update')
+                                    : submit(element, 'add')
+                            "
+                            absolute
+                            large
+                            right
+                            dark
+                            color="pink"
+                        >
+                            <span v-if="updateItem">Update Element</span>
+                            <span v-else>Add Element</span>
+                        </v-btn>
+                    </v-card>
                 </v-col>
             </v-row>
 
@@ -68,17 +95,39 @@
                     :element="element"
                     :error="error"
                 />
+
+                <v-row no-gutters>
+                    <v-col cols="6" class="pr-3">
+                        <NumberWithSuffix
+                            label="H"
+                            field="height"
+                            :form="elementOpts"
+                            :min="elementOpts.minH || 1"
+                            :max="12"
+                            :disabled="elementOpts.disableH"
+                        />
+                    </v-col>
+                    <v-col cols="6" class="pr-3">
+                        <NumberWithSuffix
+                            label="W"
+                            field="width"
+                            :form="elementOpts"
+                            :min="1"
+                            :max="12"
+                            :disabled="elementOpts.disableW"
+                        />
+                    </v-col>
+                </v-row>
             </div>
         </v-card>
 
-        <v-card flat class="mt-3" v-if="selectedElement">
+        <!-- Previev of The Form Element -->
+        <div v-if="selectedElement" class="mt-3">
             <v-card dark>
                 <v-card-title>Preview of The Form Element</v-card-title>
             </v-card>
 
             <div class="grid-item px-5 py-2">
-                <!-- Previev of The Form Element -->
-                {{ element }} {{ selectedElement }}
                 <FormElements
                     :opts="{
                         ...element,
@@ -87,70 +136,7 @@
                     }"
                 />
             </div>
-
-            <v-card-text style="position: relative">
-                <v-row>
-                    <v-col cols="9">
-                        <v-row no-gutters>
-                            <v-col cols="12">
-                                <v-switch
-                                    v-model="elementOpts.addToBottom"
-                                    :label="
-                                        `Add To ${
-                                            elementOpts.addToBottom
-                                                ? 'Bottom'
-                                                : 'Top'
-                                        }`
-                                    "
-                                ></v-switch>
-                            </v-col>
-                            <v-col cols="6" class="pr-3">
-                                <NumberWithSuffix
-                                    label="H"
-                                    field="height"
-                                    :form="elementOpts"
-                                    :min="elementOpts.minH || 1"
-                                    :max="12"
-                                    :disabled="elementOpts.disableH"
-                                />
-                            </v-col>
-                            <v-col cols="6" class="pr-3">
-                                <NumberWithSuffix
-                                    label="W"
-                                    field="width"
-                                    :form="elementOpts"
-                                    :min="1"
-                                    :max="12"
-                                    :disabled="elementOpts.disableW"
-                                />
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                        <v-btn
-                            @click="
-                                updateItem ? submit(element, 'update') : submit(element, 'add')
-                            "
-                            absolute
-                            large
-                            right
-                            dark
-                            color="pink"
-                        >
-                            <span v-if="updateItem">Update Element</span>
-                            <span v-else>Add Element</span>
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-        </v-card>
-        updating: {{updating}} <br />
-        category: {{ category }} <br />
-        elementSelector: {{ elementSelector }} <br />
-        selectedElement: {{ selectedElement }} <br />
-        -------------------------- <br />
-        element: {{ element }} <br />
-        elementOpts: {{ elementOpts }} <br />
+        </div>
     </div>
 </template>
 
@@ -174,16 +160,16 @@ const formElements = {
     static: [new FormElementSelection("Simple Text", "SimpleText")],
     input: [
         new FormElementSelection("Text Field", "VTextField"),
-        new FormElementSelection("Text Area", "VTextArea"),
+        new FormElementSelection("Text Area", "VTextArea")
     ],
     selector: [
         new FormElementSelection("Select Box", "VSelect"),
         new FormElementSelection("Combobox", "VCombobox"),
-        new FormElementSelection("Radio Buttons", "VRadio"),
+        new FormElementSelection("Radio Buttons", "VRadioButton")
     ],
     boolean: [
         new FormElementSelection("Checkbox", "VCheckbox"),
-        new FormElementSelection("Switch", "VSwitch"),
+        new FormElementSelection("Switch", "VSwitch")
     ]
 };
 
@@ -219,21 +205,21 @@ export default {
                     VSelect: { type: "regular", items: [], multiple: false },
                     VCheckbox: {},
                     VSwitch: {},
-                    VRadio: { items: [] }
+                    VRadioButton: { items: [] }
                 },
                 elementOpts: {
                     VTextField: { minH: 2, maxH: 2, disableH: true },
                     VCombobox: { minH: 2, maxH: 2, disableH: true },
                     VSelect: { minH: 2, maxH: 2, disableH: true },
                     VTextArea: { minH: 5, maxH: 12, disableH: false },
-                    VRadio: { minH: 3, maxH: 12, disableH: false }
+                    VRadioButton: { minH: 3, maxH: 12, disableH: false }
                 }
             }
         };
     },
     computed: {
         selectedElementKey() {
-            return this.category === 'input' ? this.element.key : null;
+            return this.category === "input" ? this.element.key : null;
         },
         updateItemH() {
             return this.updateItem ? this.updateItem.h : null;
@@ -259,13 +245,13 @@ export default {
         this.resetFormManager();
     },
     watch: {
-        elementSelector(val){
-            if(val === 'input' || val === 'selector' || val === 'boolean') {
-                this.category = 'input'
+        elementSelector(val) {
+            if (val === "input" || val === "selector" || val === "boolean") {
+                this.category = "input";
             } else {
-                this.category = val
+                this.category = val;
             }
-            
+
             if (val) {
                 this.items = formElements[val];
                 if (!this.updating) {
@@ -308,9 +294,9 @@ export default {
                 this.updating = false;
             }
         },
-        selectedElementKey(val){
-            if(val){
-                this.error = this.checkInputKey(val)
+        selectedElementKey(val) {
+            if (val) {
+                this.error = this.checkInputKey(val);
             }
         },
         updateItem(val) {
@@ -319,7 +305,7 @@ export default {
                 console.log(val, "update");
                 this.updateFormManager(val);
             } else {
-                this.updating = false
+                this.updating = false;
             }
         },
         updateItemW(val) {
@@ -377,31 +363,38 @@ export default {
                 height: 2
             };
         },
-        checkInputKey(key){
+        checkInputKey(key) {
             let sameKey;
-            if(this.updateItem){
-                sameKey = this.layout.find(item => item.i !== this.updateItem.i && item.element.key === key) ? true : false;
+            if (this.updateItem) {
+                sameKey = this.layout.find(
+                    item =>
+                        item.i !== this.updateItem.i && item.element.key === key
+                )
+                    ? true
+                    : false;
             } else {
-                sameKey = this.layout.find(item => item.element.key === key) ? true : false;
+                sameKey = this.layout.find(item => item.element.key === key)
+                    ? true
+                    : false;
             }
 
-            if(sameKey){
-                return "Form contains already same 'key'. Use unique key."
+            if (sameKey) {
+                return "Form contains already same 'key'. Use unique key.";
             }
 
-            return null
+            return null;
         },
         submit(element, action) {
-            if(this.category === 'input'){
-                if(!this.error){
-                    if(this.element.key){
-                        this[action](element)
+            if (this.category === "input") {
+                if (!this.error) {
+                    if (this.element.key) {
+                        this[action](element);
                     } else {
-                        this.error = "Form Key can not be empty."
+                        this.error = "Form Key can not be empty.";
                     }
                 }
             } else {
-                this[action](element)
+                this[action](element);
             }
         },
         add(e) {

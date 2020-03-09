@@ -1,58 +1,67 @@
 <template>
     <div>
-        <v-row>
-            <v-col cols="8" class="px-5">
-                <v-card min-height="80vh" elevation="20">
-                    <grid-layout
-                        :layout.sync="layout"
-                        :col-num="12"
-                        :row-height="30"
-                        :is-draggable="!saved"
-                        :is-resizable="!saved"
-                        :is-mirrored="false"
-                        :vertical-compact="true"
-                        :margin="[10, 10]"
-                        :use-css-transforms="true"
-                    >
-
-                    <div v-for="item in layout" :key="item.i" @dblclick="update(item)">
-                        <grid-item
-                            class="px-5"
-                            :class="(updateItem && updateItem.i === item.i) ? 'grid-selected-item' : 'grid-item'"
-                            
-                            :x="item.x"
-                            :y="item.y"
-                            :w="item.w"
-                            :h="item.h"
-                            :i="item.i"
-                            :minH="item.minH"
-                            :maxH="item.maxH"
+       <v-row class="mt-3">
+            <v-col cols="12" lg="11" offset-lg="1">
+                <v-row>
+                    <!-- Form -->
+                    <v-col cols="8" class="px-5">
+                        <v-card
+                            min-height="80vh"
+                            elevation="16"
+                            color="amber lighten-5"
                         >
-                            <FormElements :opts="{ ...item.element, form }" />
-                        </grid-item>
+                            <grid-layout
+                                :layout.sync="layout"
+                                :col-num="12"
+                                :row-height="30"
+                                :is-mirrored="false"
+                                :vertical-compact="true"
+                                :margin="[10, 10]"
+                                :use-css-transforms="true"
+                            >
+                                <div
+                                    v-for="item in layout"
+                                    :key="item.i"
+                                    @dblclick="update(item)"
+                                >
+                                    <grid-item
+                                        class="px-5"
+                                        :class="
+                                            updateItem &&
+                                            updateItem.i === item.i
+                                                ? 'grid-selected-item'
+                                                : 'grid-item'
+                                        "
+                                        :x="item.x"
+                                        :y="item.y"
+                                        :w="item.w"
+                                        :h="item.h"
+                                        :i="item.i"
+                                        :minH="item.minH"
+                                        :maxH="item.maxH"
+                                    >
+                                        <FormElements
+                                            :opts="{ ...item.element, form }"
+                                        />
+                                    </grid-item>
+                                </div>
+                            </grid-layout>
+                        </v-card>
+                    </v-col>
 
-                    </div>
-                    </grid-layout>
-                </v-card>
-            </v-col>
-
-            <v-col class="px-5" cols="4">
-                form: {{ form }} <br />
-                <FormManager :updateItem="updateItem" :layout="layout"
-                @addToForm="addToForm" 
-                @updateElement="updateElement"
-                @changeWH="changeWH"
-                />
-
-                --------------------------------- <br />
-                layout: {{ layout }} <br />
+                    <!-- Form Manager -->
+                    <v-col class="px-5" cols="4">
+                        <FormManager
+                            :updateItem="updateItem"
+                            :layout="layout"
+                            @addToForm="addToForm"
+                            @updateElement="updateElement"
+                            @changeWH="changeWH"
+                        />
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
-
-        <v-btn @click="saved = !saved">
-            <div v-if="saved">Edit My Form</div>
-            <div v-else>Save My Form</div>
-        </v-btn>
     </div>
 </template>
 
@@ -70,7 +79,6 @@ export default {
         GridItem: VueGridLayout.GridItem
     },
     data: () => ({
-        saved: false,
         form: {},
 
         updateItem: null,
@@ -78,15 +86,15 @@ export default {
         layout: []
     }),
     methods: {
-        changeWH(data){
-            const index = this.layout.findIndex(item => item.i === data.i) 
+        changeWH(data) {
+            const index = this.layout.findIndex(item => item.i === data.i);
             switch (data.type) {
                 case "w":
-                    this.layout[index].w = data.val
+                    this.layout[index].w = data.val;
                     break;
-            
+
                 case "h":
-                    this.layout[index].h = data.val
+                    this.layout[index].h = data.val;
                     break;
             }
         },
@@ -111,23 +119,23 @@ export default {
         },
 
         update(val) {
-            this.updateItem = val
+            this.updateItem = val;
         },
         updateElement(data) {
-            console.log(data)
-            const index = this.layout.findIndex(item => item.i === data.i)
-            
+            console.log(data);
+            const index = this.layout.findIndex(item => item.i === data.i);
+
             // DO NOT change object refrence by setting another object
-            this.layout[index].x = data.x
-            this.layout[index].y = data.y
-            this.layout[index].w = data.w
-            this.layout[index].h = data.h
-            this.layout[index].i = data.i
-            this.layout[index].minH = data.minH
-            this.layout[index].maxH = data.maxH
-            this.layout[index].element = data.element
-            
-            this.updateItem = null
+            this.layout[index].x = data.x;
+            this.layout[index].y = data.y;
+            this.layout[index].w = data.w;
+            this.layout[index].h = data.h;
+            this.layout[index].i = data.i;
+            this.layout[index].minH = data.minH;
+            this.layout[index].maxH = data.maxH;
+            this.layout[index].element = data.element;
+
+            this.updateItem = null;
         }
     }
 };
@@ -135,10 +143,10 @@ export default {
 
 <style lang="css" scoped>
 .grid-item {
-    border: 1px dashed #6D4C41;
+    border: 1px dashed #6d4c41;
 }
 .grid-selected-item {
-    background: #FFCC80;
-    border: 1px dashed #6D4C41;
+    background: #ffcc80;
+    border: 1px dashed #6d4c41;
 }
 </style>

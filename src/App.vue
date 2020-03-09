@@ -1,32 +1,22 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <v-spacer></v-spacer>
-
-    </v-app-bar>
-
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+    <v-app>
+        <Bars />
+        <v-content>
+            <router-view></router-view>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import HelloWorld from "./components/HelloWorld";
+import Bars from "./components/Bars";
 
 export default {
-  name: 'App',
+    name: "App",
 
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
+    components: {
+        Bars,
+        HelloWorld
+    },
 };
 </script>

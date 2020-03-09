@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
 import CodeOutput from '@/components/CodeOutput'
+import SourceCode from '@/components/SourceCode'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/code',
     name: 'Code',
     component: CodeOutput
+  },
+  {
+    path: '/source',
+    name: 'SourceCode',
+    component: SourceCode
   }
 ]
 
