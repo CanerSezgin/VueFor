@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HelloWorld from '@/components/HelloWorld'
 import CodeOutput from '@/components/CodeOutput'
 import SourceCode from '@/components/SourceCode'
+
+import Home from '@/views/Home'
+import NewForm from '@/views/NewForm'
+import PreMadeLayouts from '@/views/PreMadeLayouts'
 
 Vue.use(VueRouter)
 
@@ -16,8 +19,18 @@ const routes = [
   }, */
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/new',
+    name: 'NewForm',
+    component: NewForm
+  },
+  {
+    path: '/layouts',
+    name: 'PreMadeLayouts',
+    component: PreMadeLayouts
   },
   {
     path: '/code',

@@ -8,15 +8,13 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import Bars from "./components/Bars";
 
 export default {
     name: "App",
 
     components: {
-        Bars,
-        HelloWorld
+        Bars
     },
 };
 </script>
