@@ -51,7 +51,9 @@
 
                     <!-- Form Manager -->
                     <v-col class="px-5" cols="4">
-                        <v-btn color="pink" dark>Get Source Code</v-btn>
+                        <SourceCode />
+                        <CodeOutput :layout="layout" />
+                        
                         <FormManager
                             :updateItem="updateItem"
                             :layout="layout"
@@ -70,6 +72,8 @@
 import VueGridLayout from "vue-grid-layout";
 import FormManager from "@/components/FormManager/FormManager";
 import FormElements from "@/components/FormElements/FormElements";
+import SourceCode from '@/components/SourceCode';
+import CodeOutput from "@/components/CodeOutput";
 
 export default {
     name: "HelloWorld",
@@ -77,7 +81,9 @@ export default {
         FormManager,
         FormElements,
         GridLayout: VueGridLayout.GridLayout,
-        GridItem: VueGridLayout.GridItem
+        GridItem: VueGridLayout.GridItem,
+        SourceCode,
+        CodeOutput
     },
     data: () => ({
         form: {},
