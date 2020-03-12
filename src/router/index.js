@@ -5,11 +5,13 @@ import CodeOutput from '@/components/CodeOutput'
 import SourceCode from '@/components/SourceCode'
 
 import Home from '@/views/Home'
+import Form from '@/views/Form'
 import NewForm from '@/views/NewForm'
 import PreMadeLayouts from '@/views/PreMadeLayouts'
 
-Vue.use(VueRouter)
+import PreMadeLayoutsJson from '@/data/PreMadeLayouts'
 
+Vue.use(VueRouter)
 
 const routes = [
   /* {
@@ -26,6 +28,24 @@ const routes = [
     path: '/new',
     name: 'NewForm',
     component: NewForm
+  },
+  {
+    path: '/form/:layout',
+    name: 'Form',
+    component: Form,
+    children: [ { path: '*', redirect: '/'} ],
+    beforeEnter: (to, from, next) => {
+      const layout = to.params.layout
+      if(layout === 'new'){
+        next()
+      }
+      if(Object.keys(PreMadeLayoutsJson).includes(layout)){
+        next()
+      } else {
+        next('/form/new')
+      }
+      next()
+    }
   },
   {
     path: '/layouts',

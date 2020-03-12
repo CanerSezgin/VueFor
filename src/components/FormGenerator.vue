@@ -85,12 +85,11 @@ export default {
         SourceCode,
         CodeOutput
     },
+    props: ["layout"],
     data: () => ({
         form: {},
 
         updateItem: null,
-
-        layout: []
     }),
     methods: {
         changeWH(data) {
