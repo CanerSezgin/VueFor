@@ -55,7 +55,7 @@
                         </v-list-item>
                     </v-list-group>
               
-                    <v-list-item v-else :key="item.text" link @click="goTo(item.routeName)">
+                    <v-list-item v-else :key="item.text" link @click="goTo(item.route)">
                         <v-list-item-action>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-action>
@@ -134,11 +134,11 @@ export default {
         dialog: false,
         drawer: null,
         items: [
-            { icon: "mdi-file", text: "New Form", routeName: "NewForm" },
+            { icon: "mdi-file", text: "New Form", route: {name: 'Form', params: {layout: 'new'}} },
             {
                 icon: "mdi-content-copy",
                 text: "Pre-made Layouts",
-                routeName: "PreMadeLayouts"
+                route: {name: 'PreMadeLayouts'}
             }
 
             /* {
@@ -153,8 +153,8 @@ export default {
         ]
     }),
     methods: {
-      goTo(name) {
-        this.$router.push({name})
+      goTo(route) {
+        this.$router.push(route)
       },
       goToHome(){
         this.goTo('Home');

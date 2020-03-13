@@ -6,8 +6,8 @@ import SourceCode from '@/components/SourceCode'
 
 import Home from '@/views/Home'
 import Form from '@/views/Form'
-import NewForm from '@/views/NewForm'
 import PreMadeLayouts from '@/views/PreMadeLayouts'
+import Preview from '@/views/Preview'
 
 import PreMadeLayoutsJson from '@/data/PreMadeLayouts'
 
@@ -25,10 +25,11 @@ const routes = [
     component: Home
   },
   {
-    path: '/new',
-    name: 'NewForm',
-    component: NewForm
+    path: '/preview',
+    name: 'Preview',
+    component: Preview
   },
+
   {
     path: '/form/:layout',
     name: 'Form',

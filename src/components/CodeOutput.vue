@@ -1,7 +1,6 @@
 <template>
     <div>
         <v-btn color="pink" dark @click="getTemplate">Get Source Code</v-btn>
-        {{layout}}
         <SourceCode 
             @closeDialog="dialog = false"
             :code="code" :dialog="dialog" />
