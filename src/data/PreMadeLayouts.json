@@ -1,0 +1,38 @@
+{   
+    "new": {
+        "id": "new",
+        "name": "New Empty Form",
+        "layout": [],
+        "descriptions": [
+            "The form for one who wants to create his/her own form from scratch without any limitations.",
+            "Highly Suggested for creative people."
+        ]
+    },
+    "user-profile": {
+        "id": "user-profile",
+        "name": "User Profile Form",
+        "layout": [ { "x": 4, "w": 4, "h": 2, "minH": 1, "maxH": 12, "element": { "type": "h2", "desc": "User Profile Form", "category": "static", "component": "SimpleText" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "label": "First Name", "key": "name", "category": "input", "component": "VTextField" }, "i": 1, "y": 1, "moved": false }, { "x": 0, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "label": "Last Name", "key": "surname", "category": "input", "component": "VTextField" }, "i": 2, "y": 3, "moved": false }, { "x": 6, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "label": "Address 1", "key": "address1", "category": "input", "component": "VTextField" }, "i": 3, "y": 1, "moved": false }, { "x": 6, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "label": "Address 2", "key": "address2", "category": "input", "component": "VTextField" }, "i": 4, "y": 3, "moved": false }, { "x": 6, "w": 3, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "New York", "Los Angeles", "Chicago", "Houston", "Phoenix" ], "multiple": false, "label": "City", "key": "city", "category": "input", "component": "VSelect" }, "i": 5, "y": 5, "moved": false }, { "x": 9, "w": 2, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "label": "Zip Code", "key": "zipcode", "category": "input", "component": "VTextField" }, "i": 6, "y": 5, "moved": false }, { "x": 6, "w": 5, "h": 2, "minH": 1, "maxH": 12, "element": { "label": "Set as my preferred address", "key": "isPreferred", "category": "input", "component": "VCheckbox" }, "i": 7, "y": 7, "moved": false } ],
+        "descriptions": [
+            "Simple User Profile Boilerplate for your website",
+            "First Name, Last Name, Address, City, Zipcode"
+        ]
+        
+    },
+    "contact": {
+        "id": "contact",
+        "name": "Contact Form",
+        "layout":  [ { "x": 1, "w": 10, "h": 2, "minH": 1, "maxH": 12, "element": { "type": "h2", "desc": "Contact Us", "category": "static", "component": "SimpleText" }, "i": 0, "y": 0, "moved": false }, { "x": 1, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "filled", "label": "First Name", "key": "firstname", "category": "input", "component": "VTextField" }, "i": 1, "y": 4, "moved": false }, { "x": 6, "w": 5, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "filled", "label": "Last Name", "key": "lastname", "category": "input", "component": "VTextField" }, "i": 2, "y": 4, "moved": false }, { "x": 1, "w": 10, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "filled", "label": "Email", "key": "email", "category": "input", "component": "VTextField" }, "i": 3, "y": 6, "moved": false }, { "x": 1, "w": 10, "h": 5, "minH": 5, "maxH": 12, "element": { "type": "filled", "label": "Message", "key": "message", "category": "input", "component": "VTextArea" }, "i": 4, "y": 8, "moved": false }, { "x": 1, "w": 10, "h": 2, "minH": 1, "maxH": 12, "element": { "type": "p", "desc": "We'd love to hear from you! Leave a message below and we will get in touch with you shortly.", "category": "static", "component": "SimpleText" }, "i": 5, "y": 2, "moved": false } ],
+        "descriptions": [
+            "Classical Contact Us / Get In Touch Form",
+            "First Name, Last Name, Email, Message"
+        ]
+    },
+    "website-survey": {
+        "id": "website-survey",
+        "name": "Website Survey",
+        "layout": [ { "x": 0, "w": 12, "h": 1, "minH": 1, "maxH": 12, "element": { "type": "h2", "desc": "Website Survey", "category": "static", "component": "SimpleText" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 1, "minH": 1, "maxH": 12, "element": { "type": "h4", "desc": "Please take a moment to complete this brief survey. Your response will greatly help us improve our website\n", "category": "static", "component": "SimpleText" }, "i": 1, "y": 1, "moved": false }, { "x": 0, "w": 12, "h": 5, "minH": 3, "maxH": 12, "element": { "items": [ "Google Chrome", "Firefox", "IE", "Safari", "Opera" ], "label": "What browser do you use ?", "key": "browser", "category": "input", "component": "VRadioButton" }, "i": 2, "y": 7, "moved": false }, { "x": 0, "w": 12, "h": 5, "minH": 3, "maxH": 12, "element": { "items": [ "Social Media", "Advertising", "Search Engine", "Friend" ], "label": "How did you hear about this website ?", "key": "hear", "category": "input", "component": "VRadioButton" }, "i": 3, "y": 2, "moved": false }, { "x": 0, "w": 12, "h": 4, "minH": 3, "maxH": 12, "element": { "items": [ "Desktop / Laptop", "Pad Devices", "Mobile Devices" ], "label": "Which device did you use to access this website ?", "key": "device", "category": "input", "component": "VRadioButton" }, "i": 4, "y": 12, "moved": false }, { "x": 0, "w": 12, "h": 5, "minH": 3, "maxH": 12, "element": { "items": [ "Very Satisfied", "Satisfied", "Neutral", "Unsatisfied", "Very Unsatisfied" ], "label": "Are you satisfied that you found out the website ?", "key": "satisfied", "category": "input", "component": "VRadioButton" }, "i": 5, "y": 16, "moved": false } ],
+        "descriptions": [
+            "Website Survey with multiple-choice questions"
+        ]
+    }
+}

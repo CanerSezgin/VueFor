@@ -1,57 +1,9 @@
 <template>
     <div>
-
-
-<v-card class="px-4 container" :style="{ 
-    gridTemplateRows: 'repeat(11, 40px [row-start])',
-    display: 'inline-grid',
-    gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
-}">
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '1 / 1 / 3 / 13'}">
-    
-            <h4>dsfsdfsdf</h4>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '3 / 1 / 5 / 13'}">
-    
-            <v-checkbox
-                v-model="form['dsfdsfdsafdsf']"
-                label="dsfdsaf"
-            ></v-checkbox>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 1 / 7 / 7'}">
-    
-            <v-select
-                v-model="form['dsfsfd']"
-                label="dsfdsf"
-                :items='["erewr","dfssdf","dsfdsf"]'
-                :multiple="false"
-                regular
-            ></v-select>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '5 / 9 / 10 / 12'}">
-    
-            <v-switch
-                v-model="form['sddsfdfs']"
-                label="dsf"
-            ></v-switch>
-            
-    </div>
-    <div class="item-a ma-1 px-5" :style="{ gridArea: '10 / 1 / 12 / 13'}">
-    
-            <v-switch
-                v-model="form['wqewqe']"
-                label="sdf"
-            ></v-switch>
-            
-    </div>
-    
-</v-card>
-
-
-{{form}}
+        <v-btn color="pink" dark @click="getTemplate">Get Source Code</v-btn>
+        <SourceCode 
+            @closeDialog="dialog = false"
+            :code="code" :dialog="dialog" />
     </div>
 </template>
 
@@ -165,16 +117,16 @@ const getElementStr = item => {
     `
 }
 
+import SourceCode from '@/components/SourceCode'
 export default {
-    created() {
-        console.log(
-            this.getTemplate()
-        )
+    components: {
+        SourceCode
     },
+    props: ['layout'],
     data() {
         return {
-            layout: [ { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "type": "h4", "desc": "dsfsdfsdf", "category": "static", "component": "SimpleText" }, "i": 0, "y": 0, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "label": "dsfdsaf", "key": "dsfdsfdsafdsf", "category": "input", "component": "VCheckbox" }, "i": 1, "y": 2, "moved": false }, { "x": 0, "w": 6, "h": 2, "minH": 2, "maxH": 2, "element": { "type": "regular", "items": [ "erewr", "dfssdf", "dsfdsf" ], "multiple": false, "label": "dsfdsf", "key": "dsfsfd", "category": "input", "component": "VSelect" }, "i": 2, "y": 4, "moved": false }, { "x": 8, "w": 3, "h": 5, "minH": 1, "maxH": 12, "element": { "label": "dsf", "key": "sddsfdfs", "category": "input", "component": "VSwitch" }, "i": 3, "y": 4, "moved": false }, { "x": 0, "w": 12, "h": 2, "minH": 1, "maxH": 12, "element": { "label": "sdf", "key": "wqewqe", "category": "input", "component": "VSwitch" }, "i": 4, "y": 9, "moved": false } ],
-            form: {}
+            code: '',
+            dialog: false
         };
     },
     methods: {
@@ -185,7 +137,7 @@ export default {
                 response += getElementStr(item)
             });
 
-            return `<v-card class="px-4 container" :style="{ 
+            this.code = `<v-card class="px-4 container" :style="{ 
     gridTemplateRows: 'repeat(${lastRow}, 40px [row-start])',
     display: 'inline-grid',
     gridTemplateColumns: 'repeat(12, 8.333333% [col-start])'
@@ -193,6 +145,7 @@ export default {
     ${response}
 </v-card>
 `
+            this.dialog = true
         },
         getLastRow() {
             let lastRow = 0
