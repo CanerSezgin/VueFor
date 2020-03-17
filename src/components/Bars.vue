@@ -82,7 +82,7 @@
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-                <span @click="goToHome" class="hidden-sm-and-down">VueFor</span>
+                <span style="cursor: pointer" @click="goToHome" class="hidden-sm-and-down">VueFor</span>
             </v-toolbar-title>
 
             <!--  <v-text-field
@@ -157,7 +157,7 @@ export default {
         this.$router.push(route)
       },
       goToHome(){
-        this.goTo('Home');
+        this.goTo({name: 'Home'});
       }
     },
 };
