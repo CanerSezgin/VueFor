@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Preview :dialog="previewDialog" :layout="previewLayout" @closeDialog="resetDialogValues" />
         <v-container>
             <v-row>
                 <v-col cols="4" v-for="layout in PreMadeLayoutsJson" :key="layout.id">
@@ -27,6 +28,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                             <v-btn
+                                @click="openPreview(layout.id)"
                                 color="pink darken-3"
                                 text
                             >
@@ -50,10 +52,16 @@
 
 <script>
 import PreMadeLayoutsJson from '@/data/PreMadeLayouts'
+import Preview from '@/components/Previews/Preview'
     export default {
+        components: {
+            Preview
+        },
         data() {
             return {
                 PreMadeLayoutsJson,
+                previewDialog: false,
+                previewLayout: null
             }
         },
         methods: {
@@ -62,6 +70,14 @@ import PreMadeLayoutsJson from '@/data/PreMadeLayouts'
             },
             getImage(id){
                 return require(`@/assets/img/PreMadeLayouts/${id}.png`)
+            },
+            openPreview(id) {
+                this.previewDialog = true
+                this.previewLayout = id
+            },
+            resetDialogValues(){
+                this.previewDialog = false
+                this.previewLayout = null
             }
         },
     }
