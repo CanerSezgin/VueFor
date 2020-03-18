@@ -1,9 +1,9 @@
 <template>
-    <v-footer absolute padless>
+    <v-footer padless absolute>
         <v-card flat tile width="100%" class="blue-grey darken-3 text-center">
             <v-card-text class="white--text">
                 <div class="social-icons pb-2">
-                    <span v-for="icon in socialSVGs" :key="icon" class="pa-2">
+                    <span v-for="icon in socialSVGs" :key="icon.label" class="pa-2">
                     <a :href="icon.href" target="_blank">
                         <svg :aria-labelledby="`${icon.label}-icon`" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <title :id="`icons-${icon.label}-icon`" lang="en">{{icon.title}}</title>
