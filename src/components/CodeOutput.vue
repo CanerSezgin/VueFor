@@ -90,13 +90,13 @@ const getElementStr = item => {
                 v-model="form['${element.key}']"
                 label="${element.label || ""}"
             >
-            <v-radio
-                v-for='(item, index) in ${JSON.stringify(element.items)}'
-                :key="index"
-                :label="item"
-                :value="item"
-            ></v-radio>
-        </v-radio-group>
+                <v-radio
+                    v-for='(item, index) in ${JSON.stringify(element.items)}'
+                    :key="index"
+                    :label="item"
+                    :value="item"
+                ></v-radio>
+            </v-radio-group>
             `
             break;
 

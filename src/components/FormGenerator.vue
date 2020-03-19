@@ -1,7 +1,10 @@
 <template>
     <div>
        <v-row class="mt-3">
-            <v-col cols="12" lg="11" offset-lg="1">
+            <v-col 
+                cols="12" 
+                lg="11" offset-lg="1"
+            >
                 <v-row>
                     <!-- Form -->
                     <v-col cols="8" class="px-5">

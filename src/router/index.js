@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueGtag from "vue-gtag";
 
 import CodeOutput from '@/components/CodeOutput'
 import SourceCode from '@/components/SourceCode'
@@ -14,11 +15,10 @@ import PreMadeLayoutsJson from '@/data/PreMadeLayouts'
 Vue.use(VueRouter)
 
 const routes = [
-  /* {
+  {
     path: '*',
-    name: 'NotFound',
-    component: NotFound,
-  }, */
+    redirect: '/'
+  },
   {
     path: '/',
     name: 'Home',
@@ -70,5 +70,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+Vue.use(VueGtag, {
+  config: { id: "UA-161090234-1" }
+}, router);
 
 export default router
