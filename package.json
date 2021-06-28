@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "prismjs": "^1.19.0",
+    "prismjs": "^1.24.0",
     "vue": "^2.6.11",
     "vue-grid-layout": "^2.3.7",
     "vue-gtag": "^1.6.2",
